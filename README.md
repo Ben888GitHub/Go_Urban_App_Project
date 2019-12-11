@@ -1,4 +1,4 @@
-#Advanced Software Engineering Go Urban Project
+# Advanced Software Engineering Go Urban Project
 
 ## Go Urban Project!
 
@@ -62,11 +62,11 @@ expo --version
 
 
 
-Type in `git clone https://github.com/mvpclub/cp3405-sp53-2019-assignment2-full_stack_beast_-_group-6.git` 
+Type in `git clone https://github.com/Ben888GitHub/Go_Urban_App_Project.git` 
 
 
 
-After you've cloned the repository, `cd` into the frontend directory by typing `cd Front-end`
+After you've cloned the repository, `cd` into the frontend directory by typing `cd go-urban`
 
 
 
