@@ -22,7 +22,11 @@ class initialSplash extends React.Component {
             ></Image>
           </View>
           <View style={styles.smallContainerBottom}>
-            <Text style={styles.descriptorText}>Job Poster</Text>
+            <View style={styles.descriptorText}>
+              <Button 
+                title="Job Poste"
+                onPress={() => this.props.navigation.navigate('Employer')} />
+            </View>
             <Image
               source={require('./assets/employee.png')}
               style={styles.descriptorLogo}
@@ -38,18 +42,21 @@ class EmployeeScreen extends React.Component {
   render() {
     return (
       <View>
-        <Text> EmployeeScreen</Text>
+        <Text>Employerscreen</Text>
       </View>
     )
   }
 }
 
+//Personal Information screen
 class EmployerScreen extends React.Component {
   render() {
     return (
-      <View>
-        <Text> EmployerScreen</Text>
+      <View style={styles.piContainer}>
+        <Text style={styles.titleText}>Personal</Text>
+        <Text style={styles.titleText}>Information</Text>
       </View>
+
     )
   }
 }
@@ -59,6 +66,7 @@ const RootStack = createStackNavigator(
     Home: initialSplash,
     Employee: EmployeeScreen,
     Employer: EmployerScreen,
+
   },
   {
     initialRouteName: 'Home',
@@ -76,7 +84,7 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'green',
+    backgroundColor: '#00A86B',
   },
   largeText: {
     fontSize: 40,
@@ -111,7 +119,7 @@ const styles = StyleSheet.create({
     borderColor: 'grey',
   },
   descriptorText: {
-    flex: 0.7,
+    flex: 0.8,
     fontSize: 20,
     padding: 40,
     textAlign: "left",
@@ -120,5 +128,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: 100,
     height: 100,
-  }
+  },
+
+  //Personal Information style
+  piContainer:{
+    flex:1,
+    backgroundColor: '#00A86B',
+  },
+
+  titleText:{
+    fontSize: 40,
+    textAlign: "left",
+    color: 'white',
+  },
+
 });
