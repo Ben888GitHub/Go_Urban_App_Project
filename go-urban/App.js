@@ -2,7 +2,8 @@ import * as React from 'react';
 import { StyleSheet, Text, View, Image, Button, TouchableOpacity } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import EmployerScreen from './employer_screen'
+import EmployerScreen from './employer_screen';
+import EmployeeScreen from './employee_screen';
 
 class initialSplash extends React.Component {
   render() {
@@ -33,17 +34,7 @@ class initialSplash extends React.Component {
       </View>
     )
   }
-}
-
-class EmployeeScreen extends React.Component {
-  render() {
-    return (
-      <View>
-        <Text> EmployeeScreen</Text>
-      </View>
-    )
-  }
-}
+};
 
 
 const RootStack = createStackNavigator(
@@ -63,7 +54,7 @@ export default class App extends React.Component {
   render() {
     return <AppContainer />;
   }
-}
+};
 
 const styles = StyleSheet.create({
   container: {
