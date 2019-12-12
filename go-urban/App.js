@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color:'white',
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   button: {
     flex: 1,
@@ -76,21 +77,24 @@ const styles = StyleSheet.create({
   largeText: {
     fontSize: 40,
     textAlign: 'center',
-    color:'white'
+    color:'black',
+    marginBottom: 20
+    
   },
   roundedContainer: {
     flex: 0.7,
     padding: 40,
-    marginTop: 175,
+    marginTop: 100,
     marginHorizontal: 20,
-    backgroundColor: 'maroon',
+    backgroundColor: 'white',
     borderRadius: 20,
   },
   smallContainerTop: {
     flex: 1,
+    overflow: "hidden",
     backgroundColor: "slateblue",
     flexDirection: "row",
-    marginTop: 50,
+    alignSelf: "center",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     flexDirection: 'row',
@@ -99,6 +103,7 @@ const styles = StyleSheet.create({
   smallContainerBottom: {
     margin: 0,
     backgroundColor: "slateblue",
+    overflow: "hidden",
     flex: 1,
     borderBottomRightRadius: 20,
     borderBottomLeftRadius: 20,
