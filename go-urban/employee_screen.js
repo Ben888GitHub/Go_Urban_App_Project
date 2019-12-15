@@ -35,7 +35,7 @@ export default class EmployeeScreen extends React.Component {
 };
 
 const screenWidth = Math.round(Dimensions.get('window').width);
-const screenHeigth = Math.round(Dimensions.get('window').height);
+const screenHeight   = Math.round(Dimensions.get('window').height);
 
 const styles = StyleSheet.create({
   container:{
