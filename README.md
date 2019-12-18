@@ -70,8 +70,8 @@ After you've cloned the repository, `cd` into the frontend directory by typing `
 
 
 
-`npm start` to install all the required dependencies.
+`npm install` to install all the required dependencies.
 
 
 
-`expo start` to begin the Metro Bundler and run on your desired platform.
+`npm start` to start the project.
