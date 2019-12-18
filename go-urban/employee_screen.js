@@ -2,7 +2,7 @@ import * as React from 'react';
 import { StyleSheet, Text, View, Image, Button, Dimensions } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 
-export default class EmployeeScreen extends React.Component {
+export default class EmployeeScreen2 extends React.Component {
   render() {
     return (
       <View style={styles.container}>

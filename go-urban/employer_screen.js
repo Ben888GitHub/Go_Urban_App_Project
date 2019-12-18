@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, Image, Button } from 'react-native';
-import { Row, Picker } from 'native-base';
-import { Assets } from 'react-navigation-stack';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { Picker } from 'native-base';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 
 export default class EmployerScreen extends React.Component {
@@ -111,6 +110,10 @@ export default class EmployerScreen extends React.Component {
               numberOfLines={5}
             >
             </TextInput>
+            <TouchableOpacity style={styles.button}
+              onPress={() => this.props.navigation.navigate('Employer2')}>
+              <Text style={styles.buttonText}>Post</Text>
+            </TouchableOpacity>
           </ScrollView>
         </View>
       </View>
@@ -153,10 +156,12 @@ const styles = StyleSheet.create({
     backgroundColor:"white",
   },
   inputStyling: {
-    height: 40,
+    height: 400,
     marginHorizontal: 30,
     marginVertical: 10,
     backgroundColor:"white",
+    fontSize: 20,
+    padding: 20,
   },
   horizontalContainer: {
     flex: 1,
@@ -168,14 +173,20 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     margin: 10,
   },
-  black: {
-    backgroundColor: "black",
-    height: 200,
-    width: 200,
+  buttonText: {
+    fontSize: 24,
+    color:'black',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
-  blue: {
-    flex: 5,
-    backgroundColor: "blue",
-    width: 200,
+  button: {
+    backgroundColor: 'bisque',
+    overflow: 'hidden',
+    padding: 10,
+    alignItems: 'center',
+    marginTop: 20,
+    marginHorizontal: 30,
+    marginBottom: 40,
+    borderRadius: 10,
   },
 })
