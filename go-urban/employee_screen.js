@@ -7,26 +7,17 @@ export default class EmployeeScreen2 extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.top_container}>
-          <Text style={styles.pInfo}>Personal Information</Text>
+          <Text style={styles.pInfo}>Personal {"\n"}Information</Text>
         </View> 
         <View style={styles.bottom_container}>
-          <View style={styles.textTittle}>
-            <Text style={styles.fullNameStyle}>Full Name</Text>
-          </View>  
+            
           <View style={styles.inputBox}> 
               <TextInput  
-                style={styles.inputText}  
-                placeholder="Full name"  
+                style={styles.inputText} 
               />
-          </View>   
-          <View style={styles.textTittle}>
+          </View>
+          <View style = {styles.titleContainer}>
             <Text style={styles.fullNameStyle}>Full Name</Text>
-          </View>  
-          <View style={styles.inputBox}> 
-              <TextInput  
-                style={styles.inputText}  
-                placeholder="Full name"  
-              />
           </View>           
         </View> 
       </View>
@@ -44,21 +35,29 @@ const styles = StyleSheet.create({
   },
   
   top_container: {
-    flex: 0.5,
+    flex: 1,
+    padding: 20,
     flexDirection: 'column',
     backgroundColor:'slateblue',
   },
 
   bottom_container: {
-    flex: 1,
+    flex: 5,
     backgroundColor: 'bisque',
+  },
+
+  titleContainer: {
+    padding: 2,
+    marginTop: 12,
+    marginLeft: 50,
+    position: "absolute",
+    borderWidth: 2,
+    backgroundColor: 'bisque'
   },
 
   pInfo: {
     fontSize: 50,
     color: 'white',
-    marginTop: 100,
-    marginLeft: 20,
   },
 
   inputText: {
@@ -67,6 +66,7 @@ const styles = StyleSheet.create({
     height: 60,
     borderColor: 'grey',
     borderRadius: 15,
+    backgroundColor: 'white',
     borderWidth: 1,
     marginTop: 25,
     marginRight: 10,
@@ -82,10 +82,5 @@ const styles = StyleSheet.create({
 
   fullNameStyle: {
     fontSize: 22,
-    marginTop: 12,
-    marginLeft: 50,    
-    position: "absolute",
-    borderWidth: 2,
-    backgroundColor: 'bisque'
   },
 });
