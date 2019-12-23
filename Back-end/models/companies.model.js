@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 
-const Schema = mongoose.Schema;
+const Schema = mongoose.Schema; // Initialise Schema to mongoose.Schema to create a document data
 
+// initialise the companiesSchema to new Schema which contains the document data
 const companiesSchema = new Schema(
   {
     companyName: { type: String, required: true },
@@ -16,6 +17,7 @@ const companiesSchema = new Schema(
   }
 );
 
+// use mongoose to model the companiesSchema as "Companies" in Companies variable
 const Companies = mongoose.model("Companies", companiesSchema);
 
 module.exports = Companies;

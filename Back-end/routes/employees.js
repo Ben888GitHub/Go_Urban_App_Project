@@ -26,4 +26,33 @@ router.route("/add").post((req, res) => {
     .catch(error => res.status(400).json("Error: " + error));
 });
 
+
+router.route("/:id").get((req, res) => {
+  Employee.findById(req.params.id)
+  .then(employees => res.json(employees))
+  .catch(error => res.status(400).json("Error: " + error))
+})
+
+router.route("/:id").delete((req, res) => {
+  Employee.findByIdAndDelete(req.params.id)
+  .then(() => res.json(`The Employee in id of ${req.params.id} has been deleted `))
+  .catch(error => res.status(400).json("Error: " + error))
+})
+
+router.route("/update/:id").post((req, res) => {
+  Employee.findById(req.params.id)
+  .then(employees => {
+    employees.employeeName = req.body.employeeName
+    employees.profession = req.body.profession
+    employees.gender = req.body.gender
+    employees.ageGroup = Number(req.body.ageGroup)
+
+    employees.save()
+  .then(() => res.json("Employees Updated"))
+  .catch(error => res.status(400).json("Error: " + error))
+  })
+  .catch(error => res.status(400).json("Error: " + error))
+})
+
+
 module.exports = router;
