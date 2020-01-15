@@ -32,6 +32,21 @@ const companiesSchema = new Schema(
 // use mongoose to model the companiesSchema as "Companies" in Companies variable
 let Companies = mongoose.model("Companies", companiesSchema);
 
+// initialise the employeesSchema to new Schema which contains the document data
+const employeeSchema = new Schema(
+  {
+    employeeName: { type: String, required: true },
+    profession: { type: String, required: true },
+    gender: { type: String, required: true },
+    ageGroup: { type: Number, required: true }
+  },
+  {
+    timestamps: true
+  }
+);
+
+const Employee = mongoose.model("Employee", employeeSchema);
+
 // const connection = mongoose.connection;
 // connection.once("open", () => {
 //   console.log("Mongo DB Connection is successfully established! ");
@@ -58,6 +73,80 @@ exports.gourbanapp = (event, context, callback) => {
 
         // mongoose.connection.close();
       })
+      .catch(error => callback(error));
+  });
+};
+
+exports.employees = (event, context, callback) => {
+  context.callbackWaitsForEmptyEventLoop = false;
+  connectorMonogodb.then(() => {
+    Employee.find()
+      .then(employee => {
+        console.log(employee);
+        callback(null, {
+          statusCode: 200,
+          body: employee
+        });
+      })
+      .catch(error => callback(error));
+  });
+};
+exports.addCompanies = (event, context, callback) => {
+  context.callbackWaitsForEmptyEventLoop = false;
+
+  connectorMonogodb.then(() => {
+    const companyName = event.body.companyName;
+    const profession = event.body.profession;
+    const gender = event.body.gender;
+    const ageGroup = event.body.ageGroup;
+    const annualSalary = event.body.annualSalary;
+    const jobDesc = event.body.jobDesc;
+
+    const newCompanies = new Companies({
+      companyName,
+      profession,
+      gender,
+      ageGroup,
+      annualSalary,
+      jobDesc
+    });
+
+    newCompanies
+      .save()
+      .then(
+        callback(null, {
+          statusCode: 200,
+          body: "new companies has been added"
+        })
+      )
+      .catch(error => callback(error));
+  });
+};
+
+exports.addEmployees = (event, context, callback) => {
+  context.callbackWaitsForEmptyEventLoop = false;
+
+  connectorMonogodb.then(() => {
+    const employeeName = event.body.employeeName;
+    const profession = event.body.profession;
+    const gender = event.body.gender;
+    const ageGroup = event.body.ageGroup;
+
+    const newEmployees = new Employee({
+      employeeName,
+      profession,
+      gender,
+      ageGroup
+    });
+
+    newEmployees
+      .save()
+      .then(
+        callback(null, {
+          statusCode: 200,
+          body: "new employee has been added"
+        })
+      )
       .catch(error => callback(error));
   });
 };

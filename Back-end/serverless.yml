@@ -19,3 +19,35 @@ functions:
           path: /companies
           cors: true
           integration: LAMBDA
+
+  employees:
+    handler: handler.employees
+    events:
+      - http:
+          method: GET
+          path: /employees
+          cors: true
+          integration: LAMBDA
+
+  addCompanies:
+    handler: handler.addCompanies
+    events:
+      - http:
+          method: POST
+          path: /addCompanies
+          cors: true
+          integration: LAMBDA
+
+  addEmployees:
+    handler: handler.addEmployees
+    events:
+      - http:
+          method: POST
+          path: /addEmployees
+          cors: true
+          integration: LAMBDA
+      # - http:
+      #     method: POST
+      #     path: /companies/add
+      #     cors: true
+      #     integration: LAMBDA
