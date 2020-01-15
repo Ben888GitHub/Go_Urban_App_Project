@@ -4,6 +4,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import EmployerScreen from './employer_screen';
 import EmployeeScreen from './employee_screen';
 import EmployerScreen2 from './employer_screen2';
+import Careerlist from './career_list';
 import initialSplash from './initial_splash';
 import { createStore } from 'redux'
 
@@ -13,6 +14,7 @@ const RootStack = createStackNavigator(
     Employee: EmployeeScreen,
     Employer: EmployerScreen,
     Employer2: EmployerScreen2,
+    Careerlist: Careerlist,
   },
   {
     initialRouteName: 'Home',
