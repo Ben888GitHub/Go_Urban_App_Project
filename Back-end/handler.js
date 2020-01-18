@@ -17,6 +17,7 @@ const Schema = mongoose.Schema; // Initialise Schema to mongoose.Schema to creat
 // initialise the companiesSchema to new Schema which contains the document data
 const companiesSchema = new Schema(
   {
+    id: { type: Number, required: true },
     companyName: { type: String, required: true },
     profession: { type: String, required: true },
     gender: { type: String, required: true },
@@ -35,6 +36,7 @@ let Companies = mongoose.model("Companies", companiesSchema);
 // initialise the employeesSchema to new Schema which contains the document data
 const employeeSchema = new Schema(
   {
+    id: { type: Number, required: true },
     employeeName: { type: String, required: true },
     profession: { type: String, required: true },
     gender: { type: String, required: true },
@@ -95,6 +97,7 @@ exports.addCompanies = (event, context, callback) => {
   context.callbackWaitsForEmptyEventLoop = false;
 
   connectorMonogodb.then(() => {
+    const id = event.body.id;
     const companyName = event.body.companyName;
     const profession = event.body.profession;
     const gender = event.body.gender;
@@ -103,6 +106,7 @@ exports.addCompanies = (event, context, callback) => {
     const jobDesc = event.body.jobDesc;
 
     const newCompanies = new Companies({
+      id,
       companyName,
       profession,
       gender,
@@ -127,12 +131,14 @@ exports.addEmployees = (event, context, callback) => {
   context.callbackWaitsForEmptyEventLoop = false;
 
   connectorMonogodb.then(() => {
+    const id = event.body.id;
     const employeeName = event.body.employeeName;
     const profession = event.body.profession;
     const gender = event.body.gender;
     const ageGroup = event.body.ageGroup;
 
     const newEmployees = new Employee({
+      id,
       employeeName,
       profession,
       gender,
