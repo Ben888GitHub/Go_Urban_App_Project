@@ -139,7 +139,7 @@ export default class EmployerScreen extends React.Component {
               </View>
 
               <TouchableOpacity style={styles.button}
-                onPress={() => this.props.navigation.navigate('Employer2')}>
+                onPress={() => this.props.navigation.navigate('Employerlist')}>
                 <Text style={styles.buttonText}>Post</Text>
               </TouchableOpacity>
             </ScrollView>
