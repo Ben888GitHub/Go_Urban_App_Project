@@ -96,7 +96,7 @@ exports.employees = (event, context, callback) => {
 exports.addCompanies = (event, context, callback) => {
   context.callbackWaitsForEmptyEventLoop = false;
 
-  connectorMonogodb.then(() => {
+  connectorMonogodb.then(async () => {
     const id = event.body.id;
     const companyName = event.body.companyName;
     const profession = event.body.profession;
@@ -117,12 +117,13 @@ exports.addCompanies = (event, context, callback) => {
 
     newCompanies
       .save()
-      .then(
+      .then(res => {
         callback(null, {
           statusCode: 200,
-          body: "new companies has been added"
-        })
-      )
+          // body: "new companies has been added"
+          body: res
+        });
+      })
       .catch(error => callback(error));
   });
 };
@@ -147,12 +148,12 @@ exports.addEmployees = (event, context, callback) => {
 
     newEmployees
       .save()
-      .then(
+      .then(res => {
         callback(null, {
           statusCode: 200,
-          body: "new employee has been added"
-        })
-      )
+          body: res
+        });
+      })
       .catch(error => callback(error));
   });
 };
