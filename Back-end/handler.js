@@ -23,7 +23,8 @@ const companiesSchema = new Schema(
     gender: { type: String, required: true },
     ageGroup: { type: Number, required: true },
     annualSalary: { type: Number, required: true },
-    jobDesc: { type: String, required: true }
+    jobDesc: { type: String, required: true },
+    location: { type: String, required: true }
   },
   {
     timestamps: true
@@ -43,7 +44,8 @@ const employeeSchema = new Schema(
     ageGroup: { type: Number, required: true },
     education: { type: String, required: true },
     salary: { type: String, required: true },
-    experience: { type: String, required: true }
+    experience: { type: String, required: true },
+    location: { type: String, required: true }
   },
   {
     timestamps: true
@@ -107,6 +109,7 @@ exports.addCompanies = (event, context, callback) => {
     const ageGroup = event.body.ageGroup;
     const annualSalary = event.body.annualSalary;
     const jobDesc = event.body.jobDesc;
+    const location = event.body.location;
 
     const newCompanies = new Companies({
       id,
@@ -115,7 +118,8 @@ exports.addCompanies = (event, context, callback) => {
       gender,
       ageGroup,
       annualSalary,
-      jobDesc
+      jobDesc,
+      location
     });
 
     newCompanies
@@ -140,9 +144,10 @@ exports.addEmployees = (event, context, callback) => {
     const profession = event.body.profession;
     const gender = event.body.gender;
     const ageGroup = event.body.ageGroup;
-    const education = event.body.education
-    const salary = event.body.salary
-    const experience = event.body.experience
+    const education = event.body.education;
+    const salary = event.body.salary;
+    const experience = event.body.experience;
+    const location = event.body.location;
 
     const newEmployees = new Employee({
       id,
@@ -152,7 +157,8 @@ exports.addEmployees = (event, context, callback) => {
       ageGroup,
       education,
       salary,
-      experience
+      experience,
+      location
     });
 
     newEmployees
