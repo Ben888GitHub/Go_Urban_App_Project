@@ -5,9 +5,6 @@ import { AppLoading } from 'expo';
 import { ScrollView } from 'react-native-gesture-handler';
 
 export default class EmployerScreen2 extends React.Component {
-
-
-
     constructor(props) {
         super(props);
         this.state = {
@@ -36,13 +33,23 @@ export default class EmployerScreen2 extends React.Component {
                         </Text>
                     </View>
                     <View style={styles.cardBottom}>
-                        <Text style={styles.cardBody}>
-                            Profession: {item.profession}{"\n"}
-                            Gender: {item.gender}{"\n"}
-                            Age: {item.ageGroup}
-                        </Text>
+                        <View style={styles.cardBottomLeft}>
+                            <Image 
+                            source = {require('./assets/pfp.png')}
+                            style = {styles.image}/>
+                        </View>
+                        <View style={styles.cardBottomRight}>
+                            <Text style={styles.cardBody}>
+                                Profession: {item.profession}{"\n"}
+                                Gender: {item.gender}{"\n"}
+                                Age: {item.ageGroup}
+                            </Text>
+                            <TouchableOpacity style={styles.detailsButton}>
+                                <Text style={styles.detailsText}>Details</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                </View>
+                </View >
             )
         })
     }
@@ -77,6 +84,22 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         backgroundColor: 'bisque',
     },
+    detailsText: {
+        color: "white"
+    },
+    image: {
+        flex:1,
+        width: null,
+        height: null,
+        resizeMode:"contain"
+    },
+    detailsButton: {
+        margin: 5,
+        alignSelf: "flex-end",
+        padding: 5,
+        width: 55,
+        backgroundColor: "slateblue"
+    },
     containerTop: {
         flex: 1,
         flexDirection: "row",
@@ -92,11 +115,10 @@ const styles = StyleSheet.create({
         flex: 6,
         flexDirection: "column",
         backgroundColor: "slateblue",
-
     },
     cardBody: {
         fontSize: 16,
-
+        textAlign: "right",
     },
     card: {
         borderRadius: 20,
@@ -108,19 +130,25 @@ const styles = StyleSheet.create({
     },
     cardTop: {
         backgroundColor: "grey",
-        flex: 1,
+        flex: 0.3,
         flexDirection: "row-reverse",
         alignItems: "center",
-        padding: 10,
     },
     cardBottom: {
-        flexDirection: "column",
-        flex: 3,
+        flexDirection: "row",
+        flex: 0.7,
+    },
+    cardBottomLeft: {
+        flex: 0.3
+    },
+    cardBottomRight: {
+        flex: 0.7,
         padding: 10,
     },
     cardTitle: {
         color: "white",
-        size: 20,
+        fontSize: 24,
+        paddingRight: 5
     }
 })
 

@@ -2,8 +2,7 @@ import * as React from 'react';
 import { CheckBox, ListItem, Picker, Textarea, Title, Card, CardItem, Body, Button, Footer, FooterTab, Icon, Right, Left } from 'native-base';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import axios from "axios"
-import { Col, Row, Grid } from 'react-native-easy-grid';
+import {Ionicons} from "@expo/vector-icons";
 
 export default class Careerlist extends React.Component{
   
@@ -17,10 +16,21 @@ export default class Careerlist extends React.Component{
                 </View>
                 <View style = {styles.secondaryContianer}>
                     <View style = {styles.cardDesign}>
-                        <Text style = {styles.jobTitle}>Housekeeping | Jakatar | $300 </Text>
-                        <Text style = {styles.jobDes}>Job Title: housskeeper    Location: Jakatar</Text>
-                        <Text style = {styles.jobDes}>Who's hiring:    Four session group</Text>
-                        <Button style = {styles.applyBut}><Text>Apply</Text></Button>
+                        <View style = {styles.row}>
+                            <View style = {styles.col1}>
+                                <Icon style = {{fontSize: 80}}
+                                    name="woman"
+                                    textAlign = 'center'/>
+                            </View>
+                            <View style = {styles.col2}>
+                                <Text style = {styles.jobTitle}>Housekeeping | Jakatar | $300 </Text>
+                                <Text style = {styles.jobDes}>Job Title: housskeeper    Location: Jakatar</Text>
+                                <Text style = {styles.jobDes}>Who's hiring: Four session group</Text>
+                                <Button style = {styles.applyBut}>
+                                    <Text style = {{marginLeft: 22, color: "white"}}>Apply</Text>
+                                </Button>
+                            </View>
+                        </View>
                     </View>
                 </View>
                 <Footer>
@@ -68,6 +78,21 @@ const styles = StyleSheet.create({
 
     },
 
+    row:{
+        flex: 1,
+        flexDirection: 'row',
+    },
+
+    col1:{
+        width:100,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+
+    col2:{
+        width:280,
+    },
+
     screenTitle:{
         marginTop: 10,
         fontSize: 40,
@@ -77,16 +102,16 @@ const styles = StyleSheet.create({
 
     cardDesign:{
         width: 380,
-        height: 150,
+        height: 180,
         backgroundColor: "white",
         borderRadius: 15,
         marginTop: 20,
-        alignSelf: "center"
+        alignSelf: "center",
     },
 
     jobTitle:{
         fontSize: 20,
-        textAlign: "right",
+        textAlign: "left",
         marginRight: 20,
         marginTop: 20,
         color: "green",
@@ -94,18 +119,18 @@ const styles = StyleSheet.create({
 
     jobDes: {
         fontSize: 12,
-        textAlign: "right",
+        textAlign: "left",
         marginRight: 20,
         marginTop: 10,
     },
 
     applyBut:{
-        width: 50,
+        width: 80,
         height: 30,
         fontSize: 12,
-        marginRight: 20,
-        marginTop: 10,
+        marginRight: 50,
+        marginTop: 15,
         alignSelf: "flex-end",
+        alignItems: "center",
     },
-
 })
