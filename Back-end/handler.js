@@ -19,7 +19,7 @@ const companiesSchema = new Schema(
   {
     id: { type: Number, required: true },
     companyName: { type: String, required: true },
-    profession: { type: String, required: true },
+    profession: { type: [String], required: true },
     gender: { type: String, required: true },
     ageGroup: { type: Number, required: true },
     annualSalary: { type: Number, required: true },
@@ -38,9 +38,12 @@ const employeeSchema = new Schema(
   {
     id: { type: Number, required: true },
     employeeName: { type: String, required: true },
-    profession: { type: String, required: true },
+    profession: { type: [String], required: true },
     gender: { type: String, required: true },
-    ageGroup: { type: Number, required: true }
+    ageGroup: { type: Number, required: true },
+    education: { type: String, required: true },
+    salary: { type: String, required: true },
+    experience: { type: String, required: true }
   },
   {
     timestamps: true
@@ -137,13 +140,19 @@ exports.addEmployees = (event, context, callback) => {
     const profession = event.body.profession;
     const gender = event.body.gender;
     const ageGroup = event.body.ageGroup;
+    const education = event.body.education
+    const salary = event.body.salary
+    const experience = event.body.experience
 
     const newEmployees = new Employee({
       id,
       employeeName,
       profession,
       gender,
-      ageGroup
+      ageGroup,
+      education,
+      salary,
+      experience
     });
 
     newEmployees
