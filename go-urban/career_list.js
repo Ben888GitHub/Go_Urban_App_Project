@@ -18,17 +18,17 @@ export default class Careerlist extends React.Component{
                     <View style = {styles.cardDesign}>
                         <View style = {styles.row}>
                             <View style = {styles.col1}>
-                                <Ionicons
-                                    name="md-arrow-round-forward"
-                                    size = {35}
-                                    color = "black"
+                                <Icon style = {{fontSize: 80}}
+                                    name="woman"
                                     textAlign = 'center'/>
                             </View>
                             <View style = {styles.col2}>
                                 <Text style = {styles.jobTitle}>Housekeeping | Jakatar | $300 </Text>
                                 <Text style = {styles.jobDes}>Job Title: housskeeper    Location: Jakatar</Text>
                                 <Text style = {styles.jobDes}>Who's hiring: Four session group</Text>
-                                <Button style = {styles.applyBut}><Text style = {{marginLeft: 22, color: "white"}}>Apply</Text></Button>
+                                <Button style = {styles.applyBut}>
+                                    <Text style = {{marginLeft: 22, color: "white"}}>Apply</Text>
+                                </Button>
                             </View>
                         </View>
                     </View>
