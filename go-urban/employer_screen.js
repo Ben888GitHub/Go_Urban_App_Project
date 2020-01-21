@@ -1,65 +1,109 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, KeyboardAvoidingView, Alert } from 'react-native';
 import { Picker, Form, Textarea } from 'native-base';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView, TextInput } from 'react-native-gesture-handler';
 
 export default class EmployerScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      companyName: '',
+      jobDesc: '',
       jobType: 'none',
       gender: 'none',
       ageGroup: 'none',
       salary: 'none',
       education: 'none',
     }
-    updateJobType = (jobType) => {
-      this.setState({ jobType: jobType })
-    }
-    updateGender = (gender) => {
-      this.setState({ gender: gender })
-    }
-    updateAgeGroup = (ageGroup) => {
-      this.setState({ ageGroup: ageGroup })
-    }
-    updateSalary = (salary) => {
-      this.setState({ salary: salary })
-    }
-    updateEducation = (education) => {
-      this.setState({ education: education })
-    }
-
   }
+
+  handleClick = () => {
+
+    newJob = {
+      companyName: this.state.companyName,
+      profession: this.state.jobType,
+      gender: this.state.gender,
+      ageGroup: this.state.ageGroup,
+      annualSalary: this.state.salary,
+      jobDesc: this.state.jobDesc,
+    };
+    Alert.alert(
+      'Post Job',
+      `Are you sure you want to post this?` +
+      `\n\nCompany Name: ${newJob.companyName}` +
+      `\nProfession: ${newJob.profession}` +
+      `\nGender: ${newJob.gender}` +
+      `\nAge Group: ${newJob.ageGroup}` +
+      `\nAnnual Salary: ${newJob.annualSalary}` +
+      `\n\nJob Description: ${newJob.jobDesc}`,
+      [
+        {
+          text: 'Cancel',
+          onPress: () => { },
+          style: 'cancel',
+        },
+        {
+          text: 'Post',
+          onPress: () => this.props.navigation.navigate('Employerlist')
+        }
+      ]
+    )
+  }
+
+
+
+
+  updateCompanyName = (companyName) => {
+    this.setState({ companyName })
+  }
+  updateJobDesc = (jobDesc) =>{
+    this.setState({ jobDesc })
+  }
+  updateJobType = (jobType) => {
+    this.setState({ jobType })
+  }
+  updateGender = (gender) => {
+    this.setState({ gender })
+  }
+  updateAgeGroup = (ageGroup) => {
+    this.setState({ ageGroup })
+  }
+  updateSalary = (salary) => {
+    this.setState({ salary })
+  }
+  updateEducation = (education) => {
+    this.setState({ education })
+  }
+
+
+
 
 
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.horizontalContainer}>
-          <Image style={styles.logo}
-            source={require('./assets/placeholder-logo.png')}>
-          </Image>
-          <View style={styles.nameHolder}>
-            <Text style={styles.largeText}>
-              Spartan Fitness
-            </Text>
-          </View>
+          <Text style={styles.largeText}>
+            New Job Listing
+          </Text>
         </View>
-        <KeyboardAvoidingView behavior="padding" enabled style={{ flex: 5 }}>
-
-          <View style={styles.scrollHolder}>
-
-            <ScrollView>
-              <Text style={styles.mediumText}>
-                New Job Listing
-            </Text>
-
+        <View style={styles.scrollHolder}>
+          <ScrollView>
+            <KeyboardAvoidingView behavior="padding" enabled>
+              <Text style={styles.labelText}>
+                Enter the name of your company:
+              </Text>
+              <TextInput style={styles.nameStyling}
+                onChangeText={this.updateCompanyName}
+                value={this.state.companyName}
+                bordered placeholder="The name of your company..." />
               <Text style={styles.labelText}>
                 Give a description of your job:
               </Text>
-              <Form>
-                <Textarea style={styles.inputStyling} rowSpan={3} bordered placeholder="About this position..." />
-              </Form>
+              <TextInput style={styles.inputStyling}
+                onChangeText={this.updateJobDesc}
+                value={this.state.jobDesc}
+                bordered placeholder="A brief description of the position..." />
               <Text style={styles.labelText}>
                 Pick a profession:
             </Text>
@@ -139,16 +183,16 @@ export default class EmployerScreen extends React.Component {
               </View>
 
               <TouchableOpacity style={styles.button}
-                onPress={() => this.props.navigation.navigate('Employerlist')}>
+                onPress={this.handleClick}>
                 <Text style={styles.buttonText}>Post</Text>
               </TouchableOpacity>
-            </ScrollView>
-          </View>
-        </KeyboardAvoidingView>
+            </KeyboardAvoidingView>
+          </ScrollView>
+        </View>
       </View>
     )
-  }
-};
+  };
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -159,11 +203,12 @@ const styles = StyleSheet.create({
   labelText: {
     fontSize: 20,
     color: 'white',
-    marginHorizontal: 30,
+    marginHorizontal: 10,
   },
   scrollHolder: {
+    flex: 6,
+    padding: 20,
     backgroundColor: "slateblue",
-    flex: 5,
     justifyContent: "flex-end",
     marginTop: 20,
   },
@@ -172,7 +217,7 @@ const styles = StyleSheet.create({
   },
   largeText: {
     fontSize: 30,
-    alignSelf: "center",
+    textAlign: "center",
   },
   mediumText: {
     marginVertical: 20,
@@ -181,16 +226,23 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   containerStyling: {
-    marginHorizontal: 30,
+    borderRadius: 4,
     marginVertical: 10,
     backgroundColor: "white",
   },
-  inputStyling: {
-    marginHorizontal: 30,
+  nameStyling: {
     marginVertical: 10,
     backgroundColor: "white",
-    fontSize: 20,
-    padding: 20,
+    fontSize: 18,
+    borderRadius: 4,
+    padding: 10,
+  },
+  inputStyling: {
+    marginVertical: 10,
+    backgroundColor: "white",
+    fontSize: 18,
+    borderRadius: 4,
+    padding: 10,
   },
   inner: {
     justifyContent: "flex-end",
@@ -198,6 +250,7 @@ const styles = StyleSheet.create({
   horizontalContainer: {
     flex: 1,
     flexDirection: "row",
+    justifyContent: "center",
     alignItems: "center",
   },
   logo: {
@@ -217,7 +270,6 @@ const styles = StyleSheet.create({
     padding: 10,
     alignItems: 'center',
     marginTop: 20,
-    marginHorizontal: 30,
     marginBottom: 40,
     borderRadius: 10,
   },

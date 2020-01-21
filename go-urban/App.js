@@ -17,7 +17,7 @@ const RootStack = createStackNavigator(
     Careerlist: Careerlist,
   },
   {
-    initialRouteName: 'Employer',
+    initialRouteName: 'Home',
   }
 );
 
@@ -26,6 +26,7 @@ const initialState = {
   gender: 'none',
   ageGroup: 'none',
   salary: 'none',
+  experience: 'none',
 }
 
 reducer = (state = initialState) => {

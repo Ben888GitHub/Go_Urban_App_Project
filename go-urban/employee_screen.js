@@ -10,6 +10,8 @@ export default class EmployeeScreen2 extends React.Component {
       name: "",
       gender: "none",
       ageGroup: "none",
+      education: "none",
+      experience: "none",
       cleaning: false,
       driving: false,
       mason: false,
@@ -17,7 +19,6 @@ export default class EmployeeScreen2 extends React.Component {
       housekeeping: false,
       factory: false,
       gardening: false,
-      education: "none",
     }
   }
   updateAgeGroup = (ageGroup) => {
@@ -27,7 +28,10 @@ export default class EmployeeScreen2 extends React.Component {
     this.setState({ gender: gender })
   }
   updateEducation = (education) => {
-    this.setState({education: education})
+    this.setState({ education: education })
+  }
+  updateExperience = (experience) => {
+    this.setState({ experience: experience })
   }
   render() {
     return (
@@ -73,6 +77,20 @@ export default class EmployeeScreen2 extends React.Component {
                 <Picker.Item label="Finished 10th grade" value="high" />
                 <Picker.Item label="Have a diploma" value="diploma" />
                 <Picker.Item label="Have a degree" value="degree" />
+              </Picker>
+            </View>
+            <View style={styles.containerStyling}>
+              <Picker
+                selectedValue={this.state.experience}
+                onValueChange={this.updateExperience}>
+                <Picker.Item label="Experience..." value="none" />
+                <Picker.Item label="No previous work experience" value="no" />
+                <Picker.Item label="1 year of experience" value="1" />
+                <Picker.Item label="2 years of experience" value="2" />
+                <Picker.Item label="3 years of experience" value="3" />
+                <Picker.Item label="4 years of experience" value="4" />
+                <Picker.Item label="5 years of experience" value="5" />
+                <Picker.Item label="5+ years of experience" value="5+" />
               </Picker>
             </View>
             <Text style={styles.labelText}>Your skills</Text>
@@ -121,13 +139,11 @@ export default class EmployeeScreen2 extends React.Component {
               </ListItem>
             </View>
             <TouchableOpacity style={styles.button}
-                onPress={() => this.props.navigation.navigate('Careerlist')}>
-                <Text style={styles.buttonText}>Sign Up</Text>
-              </TouchableOpacity>
+              onPress={() => this.props.navigation.navigate('Careerlist')}>
+              <Text style={styles.buttonText}>Sign Up</Text>
+            </TouchableOpacity>
           </ScrollView>
         </View>
-
-
       </View>
     )
   }
