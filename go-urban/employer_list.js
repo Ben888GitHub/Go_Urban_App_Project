@@ -147,13 +147,8 @@ const styles = StyleSheet.create({
     },
     cardTitle: {
         color: "white",
-<<<<<<< HEAD
-        //size: 20,
-    },
-=======
         fontSize: 24,
         paddingRight: 5
-    }
->>>>>>> cfc9c9dca4950d5d31470b87d6b0a49729236f7b
+    },
 })
 

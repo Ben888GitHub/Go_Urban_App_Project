@@ -38,9 +38,9 @@ export default class Careerlist extends React.Component{
                                 textAlign = 'center'/>
                         </View>
                         <View style = {styles.col2}>
-                                <Text style = {styles.jobTitle}>{item.profession} | Jakatar | {item.annualSalary} </Text>
+                                <Text style = {styles.jobTitle}>{item.profession} | {item.location} | {item.annualSalary} </Text>
                                 <Text style = {styles.jobDes}>Job Title: {item.profession}    Gender: {item.gender}</Text>
-                                <Text style = {styles.jobDes}>{item.jobDes}</Text>
+                                <Text style = {styles.jobDes}>{item.jobDesc}</Text>
                                 <Button style = {styles.applyBut}>
                                     <Text style = {{marginLeft: 22, color: "white", alignSelf: "center"}}>Detial</Text>
                                 </Button>
@@ -56,15 +56,14 @@ export default class Careerlist extends React.Component{
         return(
             <View style = {styles.contianer}>
                 <View styel = {styles.topContianer}>
-                    <View>
                         <Text style = {styles.screenTitle}>Career List</Text>
-                    </View>
                 </View>
-                <ScrollView>
                 <View style = {styles.secondaryContianer}>
-                    {this.renderCards()}
+                    <ScrollView>
+                        {this.renderCards()}
+                    </ScrollView>
                 </View>
-                </ScrollView>
+                
                 <Footer>
                     <FooterTab>
                         <Button vertical>
@@ -98,8 +97,7 @@ const styles = StyleSheet.create({
 
     topContianer:{
         flex: 1,
-        height: 150,
-        //justifyContent: "center",
+        height: 250,
         backgroundColor: 'bisque',
 
     },
@@ -107,8 +105,7 @@ const styles = StyleSheet.create({
     secondaryContianer:{
         flex: 5,
         backgroundColor: 'slateblue',
-        marginTop: 50,
-
+        paddingBottom: 20,
     },
 
     row:{
@@ -129,7 +126,9 @@ const styles = StyleSheet.create({
     },
 
     screenTitle:{
-        marginTop: 50,
+        paddingTop: 40,
+        height: 120,
+        justifyContent: "center",
         fontSize: 40,
         textAlignVertical: "center",
         textAlign: "center",
@@ -163,6 +162,7 @@ const styles = StyleSheet.create({
         width: 80,
         height: 30,
         fontSize: 12,
+        marginTop: 10,
         marginRight: 30,
         alignSelf: "flex-end",
         alignItems: "center",

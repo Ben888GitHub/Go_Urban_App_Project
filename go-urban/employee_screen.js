@@ -21,6 +21,38 @@ export default class EmployeeScreen2 extends React.Component {
       gardening: false,
     }
   }
+  // handleClick = () => {
+
+  //   newJob = {
+  //     companyName: this.state.companyName,
+  //     profession: this.state.jobType,
+  //     gender: this.state.gender,
+  //     ageGroup: this.state.ageGroup,
+  //     annualSalary: this.state.salary,
+  //     jobDesc: this.state.jobDesc,
+  //   };
+  //   Alert.alert(
+  //     'Post Job',
+  //     `Are you sure you want to post this?` +
+  //     `\n\nCompany Name: ${newJob.companyName}` +
+  //     `\nProfession: ${newJob.profession}` +
+  //     `\nGender: ${newJob.gender}` +
+  //     `\nAge Group: ${newJob.ageGroup}` +
+  //     `\nAnnual Salary: ${newJob.annualSalary}` +
+  //     `\n\nJob Description: ${newJob.jobDesc}`,
+  //     [
+  //       {
+  //         text: 'Cancel',
+  //         onPress: () => { },
+  //         style: 'cancel',
+  //       },
+  //       {
+  //         text: 'Post',
+  //         onPress: () => this.props.navigation.navigate('Employerlist')
+  //       }
+  //     ]
+  //   )
+  // }
   updateAgeGroup = (ageGroup) => {
     this.setState({ ageGroup: ageGroup })
   }
