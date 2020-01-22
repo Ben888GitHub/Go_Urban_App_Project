@@ -26,6 +26,7 @@ const initialState = {
   gender: 'none',
   ageGroup: 'none',
   salary: 'none',
+  experience: 'none',
 }
 
 reducer = (state = initialSplash) => {
