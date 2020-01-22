@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     },
     cardTitle: {
         color: "white",
-        size: 20,
-    }
+        //size: 20,
+    },
 })
 
