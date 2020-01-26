@@ -42,7 +42,7 @@ export default class Careerlist extends React.Component{
                                 <Text style = {styles.jobDes}>Job Title: {item.profession}    Gender: {item.gender}</Text>
                                 <Text style = {styles.jobDes}>{item.jobDesc}</Text>
                                 <Button style = {styles.applyBut}>
-                                    <Text style = {{marginLeft: 22, color: "white", alignSelf: "center"}}>Detial</Text>
+                                    <Text style = {{marginLeft: 22, color: "white", alignSelf: "center"}}>Details</Text>
                                 </Button>
                         </View>
                     </View>
@@ -63,7 +63,7 @@ export default class Careerlist extends React.Component{
                         {this.renderCards()}
                     </ScrollView>
                 </View>
-                
+{/*                 
                 <Footer>
                     <FooterTab>
                         <Button vertical>
@@ -83,7 +83,7 @@ export default class Careerlist extends React.Component{
                         <Text>Setting</Text>
                         </Button>
                     </FooterTab>
-                    </Footer>
+                    </Footer> */}
             </View>
         )
     }

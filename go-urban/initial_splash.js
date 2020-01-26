@@ -12,7 +12,7 @@ export default class initialSplash extends React.Component {
               source={require('./assets/employer.png')}
             />
             <TouchableOpacity style={styles.button}
-              onPress={() => this.props.navigation.navigate('Employee')}>
+              onPress={() => this.props.navigation.navigate('SeekerSplash')}>
               <Text style={styles.buttonText}>Job Seeker</Text>
             </TouchableOpacity>
 
