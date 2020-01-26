@@ -2,13 +2,16 @@ import * as React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, KeyboardAvoidingView, Alert } from 'react-native';
 import { Picker, Form, Textarea } from 'native-base';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
+const axios = require('axios').default;
 
 export default class EmployerScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      idNum: Math.floor(Math.random() * 90000000 + 10000000).toString(),
       companyName: '',
       jobDesc: '',
+      location: '',
       jobType: 'none',
       gender: 'none',
       ageGroup: 'none',
@@ -19,44 +22,71 @@ export default class EmployerScreen extends React.Component {
 
   handleClick = () => {
 
-    newJob = {
-      companyName: this.state.companyName,
-      profession: this.state.jobType,
-      gender: this.state.gender,
-      ageGroup: this.state.ageGroup,
-      annualSalary: this.state.salary,
-      jobDesc: this.state.jobDesc,
-    };
-    Alert.alert(
-      'Post Job',
-      `Are you sure you want to post this?` +
-      `\n\nCompany Name: ${newJob.companyName}` +
-      `\nProfession: ${newJob.profession}` +
-      `\nGender: ${newJob.gender}` +
-      `\nAge Group: ${newJob.ageGroup}` +
-      `\nAnnual Salary: ${newJob.annualSalary}` +
-      `\n\nJob Description: ${newJob.jobDesc}`,
-      [
-        {
-          text: 'Cancel',
-          onPress: () => { },
-          style: 'cancel',
-        },
-        {
-          text: 'Post',
-          onPress: () => this.props.navigation.navigate('Employerlist')
-        }
-      ]
-    )
+
+    if (this.state.companyName === "" ||
+      this.state.jobDesc === "" ||
+      this.state.jobType === "none" ||
+      this.state.gender === "none" ||
+      this.state.ageGroup === "none" ||
+      this.state.salary === "none" ||
+      this.state.education === "none" ||
+      this.state.location === "") {
+      Alert.alert("Empty fields",
+        "Some of the fields have not been selected.",
+        [
+          { text: 'OK' }
+        ])
+    }
+    else {
+      newJob = {
+        "id": this.state.idNum,
+        "companyName": this.state.companyName,
+        "profession": this.state.jobType,
+        "gender": this.state.gender,
+        "ageGroup": this.state.ageGroup,
+        "annualSalary": this.state.salary,
+        "jobDesc": this.state.jobDesc,
+        "location": this.state.location,
+      };
+      console.log(newJob.id)
+      Alert.alert(
+        'Post Job',
+        `Are you sure you want to post this?` +
+        `\n\nCompany Name: ${newJob.companyName}` +
+        `\nProfession: ${newJob.profession}` +
+        `\nGender: ${newJob.gender}` +
+        `\nAge Group: ${newJob.ageGroup}` +
+        `\nAnnual Salary: ${newJob.annualSalary}` +
+        `\nUnique ID: ${newJob.id}` +
+        `\n\nJob Description: ${newJob.jobDesc}`,
+        [
+          {
+            text: 'Cancel',
+            style: 'cancel',
+          },
+          {
+            text: 'Post',
+
+            onPress: () => {
+              this.props.navigation.navigate('Employerlist')
+              axios.post('https://kwzcxp9w01.execute-api.us-east-1.amazonaws.com/dev/addCompanies', newJob)
+                .then(response => {
+                  console.log(JSON.stringify(response.data.body))
+                }).catch((error) => {
+                  console.log(error)
+                })
+            }
+          }
+        ]
+      )
+
+    }
   }
-
-
-
 
   updateCompanyName = (companyName) => {
     this.setState({ companyName })
   }
-  updateJobDesc = (jobDesc) =>{
+  updateJobDesc = (jobDesc) => {
     this.setState({ jobDesc })
   }
   updateJobType = (jobType) => {
@@ -74,10 +104,9 @@ export default class EmployerScreen extends React.Component {
   updateEducation = (education) => {
     this.setState({ education })
   }
-
-
-
-
+  updateLocation = (location) => {
+    this.setState({ location })
+  }
 
   render() {
     return (
@@ -104,6 +133,13 @@ export default class EmployerScreen extends React.Component {
                 onChangeText={this.updateJobDesc}
                 value={this.state.jobDesc}
                 bordered placeholder="A brief description of the position..." />
+              <Text style={styles.labelText}>
+                Enter the country you are located in:
+              </Text>
+              <TextInput style={styles.nameStyling}
+                onChangeText={this.updateLocation}
+                value={this.state.location}
+                bordered placeholder="The country you are located in..." />
               <Text style={styles.labelText}>
                 Pick a profession:
             </Text>
@@ -144,15 +180,15 @@ export default class EmployerScreen extends React.Component {
                   onValueChange={this.updateAgeGroup}>
                   <Picker.Item label="Choose..." value="none" />
                   <Picker.Item label="No preferences" value="any" />
-                  <Picker.Item label="18-30" value="young" />
-                  <Picker.Item label="30-40" value="thirties" />
-                  <Picker.Item label="40-50" value="forties" />
-                  <Picker.Item label="50+" value="Old" />
+                  <Picker.Item label="18-30" value={18} />
+                  <Picker.Item label="30-40" value={30} />
+                  <Picker.Item label="40-50" value={40} />
+                  <Picker.Item label="50+" value={50} />
                 </Picker>
               </View>
               <Text style={styles.labelText}>
                 Pick a preferred level of education:
-            </Text>
+              </Text>
               <View style={styles.containerStyling}>
                 <Picker
                   selectedValue={this.state.education}
@@ -175,13 +211,12 @@ export default class EmployerScreen extends React.Component {
                   onValueChange={this.updateSalary}>
                   <Picker.Item label="Choose..." value="none" />
                   <Picker.Item label="Available upon request" value="inquire" />
-                  <Picker.Item label="less than $10,000" value="minimum" />
-                  <Picker.Item label="$10,000 - $20,000" value="10k" />
-                  <Picker.Item label="$20,000 - $30,000" value="20k" />
+                  <Picker.Item label="less than $10,000" value={10000} />
+                  <Picker.Item label="$10,000 - $20,000" value={20000} />
+                  <Picker.Item label="$20,000 - $30,000" value={30000} />
                   <Picker.Item label="$30,000+" value="30k" />
                 </Picker>
               </View>
-
               <TouchableOpacity style={styles.button}
                 onPress={this.handleClick}>
                 <Text style={styles.buttonText}>Post</Text>

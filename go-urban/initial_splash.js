@@ -12,7 +12,7 @@ export default class initialSplash extends React.Component {
               source={require('./assets/employer.png')}
             />
             <TouchableOpacity style={styles.button}
-              onPress={() => this.props.navigation.navigate('SeekerSplash')}>
+              onPress={() => this.props.navigation.navigate('PosterSplash')}>
               <Text style={styles.buttonText}>Job Seeker</Text>
             </TouchableOpacity>
 
@@ -22,7 +22,7 @@ export default class initialSplash extends React.Component {
               source={require('./assets/employee.png')}
               style={styles.descriptorLogo} />
             <TouchableOpacity style={styles.button}
-              onPress={() => this.props.navigation.navigate('Employer')}>
+              onPress={() => this.props.navigation.navigate('SeekerSplash')}>
               <Text style={styles.buttonText}>Job Poster</Text>
             </TouchableOpacity>
           </View>

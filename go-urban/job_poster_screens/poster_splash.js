@@ -4,15 +4,17 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { Textarea } from 'native-base';
 import { TextInput } from 'react-native-gesture-handler';
 
-export default class PosterSplash extends React.Component {
+export default class SeekerSplash extends React.Component {
 
     constructor(props) {
         super(props)
     }
 
     handleNew = () => {
-        this.props.navigation.navigate('Employee')
+        this.props.navigation.navigate('Employer')
     }
+
+
 
     render() {
         return (
@@ -20,18 +22,18 @@ export default class PosterSplash extends React.Component {
 
                 <View style={styles.containerTop}>
                     <Text style={styles.titleText}>
-                        Job Seeker
+                        Job Poster
                     </Text>
                 </View>
                 <View style={styles.containerBottom}>
                     <View>
                         <Text style={styles.bodyText}>
-                            Please enter the 10-digit user ID number provided with your registry.
+                            Please enter the 8-digit company ID number provided with your registry.
                         </Text>
                         <TextInput
-                            maxLength={10}
+                            maxLength={8}
                             style={styles.idinput}
-                            placeholder="10-digit user ID">
+                            placeholder="8-digit ID">
 
                         </TextInput>
                         <TouchableOpacity
