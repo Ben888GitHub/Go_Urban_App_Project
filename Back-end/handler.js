@@ -27,7 +27,7 @@ const companiesSchema = new Schema(
     location: { type: String, required: true }
   },
   {
-    timestamps: true
+    timestamps: false
   }
 );
 

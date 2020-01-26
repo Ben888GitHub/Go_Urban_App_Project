@@ -1,8 +1,7 @@
 import * as React from 'react';
 import axios from 'axios';
-import { StyleSheet, Text, View, Image, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, ScrollView, Text, View, Image, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import { AppLoading } from 'expo';
-import { ScrollView } from 'react-native-gesture-handler';
 
 export default class EmployerScreen2 extends React.Component {
     constructor(props) {
@@ -34,8 +33,8 @@ export default class EmployerScreen2 extends React.Component {
                     </View>
                     <View style={styles.cardBottom}>
                         <View style={styles.cardBottomLeft}>
-                            <Image 
-                            source = {require('./assets/pfp.png')}
+                            <Image
+                            source = {require('./../assets/pfp.png')}
                             style = {styles.image}/>
                         </View>
                         <View style={styles.cardBottomRight}>
