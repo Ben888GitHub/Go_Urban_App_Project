@@ -27,6 +27,14 @@ export default class Careerlist extends React.Component{
             })
     }
 
+    // check condition
+    // iconCheck(){
+    //         if (item.profession == 'Construction worker') {
+    //             <Icon style = {{fontSize: 80}}
+
+    //     }
+    //}
+
     renderCards() {
         return this.state.companies.map((item) => {
             return (
@@ -66,11 +74,11 @@ export default class Careerlist extends React.Component{
                 
                 <Footer>
                     <FooterTab>
-                        <Button vertical>
+                        <Button active={this.state.tab1} onPress={() => this.props.navigation.navigate('Careerlist')}>
                         <Icon name="home" />
                         <Text>Home</Text>
                         </Button>
-                        <Button vertical>
+                        <Button active={this.state.tab2} onPress={() => this.props.navigation.navigate('Employerlist')}>
                         <Icon name="paper" />
                         <Text>Offer</Text>
                         </Button>
