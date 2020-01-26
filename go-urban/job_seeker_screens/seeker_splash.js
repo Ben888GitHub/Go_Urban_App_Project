@@ -6,13 +6,15 @@ import { TextInput } from 'react-native-gesture-handler';
 
 export default class SeekerSplash extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props)
     }
 
     handleNew = () => {
         this.props.navigation.navigate('Employer')
     }
+
+
 
     render() {
         return (
@@ -34,9 +36,15 @@ export default class SeekerSplash extends React.Component {
                             placeholder="8-digit ID">
 
                         </TextInput>
+                        <TouchableOpacity
+                        style = {styles.proceedButon}>
+                            <Text style = {styles.proceedText}>
+                                Next
+                            </Text>
+                        </TouchableOpacity>
                     </View>
-                    <TouchableOpacity 
-                    onPress = {this.handleNew}>
+                    <TouchableOpacity
+                        onPress={this.handleNew}>
                         <Text style={styles.newText}>
                             New Here? Sign Up
                         </Text>
@@ -52,6 +60,15 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: "column",
         backgroundColor: "bisque"
+    },
+    proceedText: { 
+        fontSize: 16,       
+    },
+    proceedButon: {
+        padding: 10,
+        borderRadius: 5,
+        backgroundColor: "bisque",
+        alignSelf: "center"
     },
     newText: {
         color: "white",

@@ -82,12 +82,12 @@ export default class EmployerScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.horizontalContainer}>
+        <View style={styles.topContainer}>
           <Text style={styles.largeText}>
             New Job Listing
           </Text>
         </View>
-        <View style={styles.scrollHolder}>
+        <View style={styles.bottomContainer}>
           <ScrollView>
             <KeyboardAvoidingView behavior="padding" enabled>
               <Text style={styles.labelText}>
@@ -205,12 +205,11 @@ const styles = StyleSheet.create({
     color: 'white',
     marginHorizontal: 10,
   },
-  scrollHolder: {
+  bottomContainer: {
     flex: 6,
     padding: 20,
     backgroundColor: "slateblue",
     justifyContent: "flex-end",
-    marginTop: 20,
   },
   nameHolder: {
     flex: 0.7,
@@ -247,9 +246,8 @@ const styles = StyleSheet.create({
   inner: {
     justifyContent: "flex-end",
   },
-  horizontalContainer: {
+  topContainer: {
     flex: 1,
-    flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
   },
