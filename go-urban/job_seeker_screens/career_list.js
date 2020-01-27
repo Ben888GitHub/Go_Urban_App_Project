@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { CheckBox, ListItem, Picker, Textarea, Title, Card, CardItem, Body, Button, Footer, FooterTab, Icon, Right, Left } from 'native-base';
+import { Button, Footer, FooterTab, Icon} from 'native-base';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import {Ionicons} from "@expo/vector-icons";
@@ -26,14 +26,6 @@ export default class Careerlist extends React.Component{
                 this.setState({ isReady: true })
             })
     }
-
-    // check condition
-    // iconCheck(){
-    //         if (item.profession == 'Construction worker') {
-    //             <Icon style = {{fontSize: 80}}
-
-    //     }
-    //}
 
     renderCards() {
         return this.state.companies.map((item) => {
@@ -70,28 +62,27 @@ export default class Careerlist extends React.Component{
                     <ScrollView>
                         {this.renderCards()}
                     </ScrollView>
-                </View>
-{/*                 
+                </View>          
                 <Footer>
                     <FooterTab>
-                        <Button active={this.state.tab1} onPress={() => this.props.navigation.navigate('Careerlist')}>
+                        <Button active={this.state} onPress={() => this.props.navigation.navigate('Careerlist')}>
                         <Icon name="home" />
                         <Text>Home</Text>
                         </Button>
-                        <Button active={this.state.tab2} onPress={() => this.props.navigation.navigate('Employerlist')}>
+                        <Button active={this.state} onPress={() => this.props.navigation.navigate('Career_offer')}>
                         <Icon name="paper" />
                         <Text>Offer</Text>
                         </Button>
-                        <Button vertical active>
+                        <Button active={this.state} onPress={() => this.props.navigation.navigate('Employee_profile')}>
                         <Icon active name="person" />
                         <Text>Profile</Text>
                         </Button>
-                        <Button vertical>
+                        <Button active={this.state} onPress={() => this.props.navigation.navigate('Setting')}>
                         <Icon name="settings" />
                         <Text>Setting</Text>
                         </Button>
                     </FooterTab>
-                    </Footer> */}
+                    </Footer> 
             </View>
         )
     }
