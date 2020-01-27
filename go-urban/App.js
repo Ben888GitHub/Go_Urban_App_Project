@@ -3,7 +3,7 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import EmployerScreen from './job_poster_screens/employer_screen';
 import EmployeeScreen from './job_seeker_screens/employee_screen';
-import Employer_list from './job_poster_screens/employer_list';
+import Employee_list from './job_poster_screens/employee_list';
 import CareerList from './job_seeker_screens/career_list';
 import CareerDetail from './job_seeker_screens/career_detail';
 import initialSplash from './initial_splash';
@@ -19,7 +19,7 @@ const RootStack = createStackNavigator(
     Home: initialSplash,
     Employee: EmployeeScreen,
     Employer: EmployerScreen,
-    Employerlist: Employer_list,
+    Employeelist: Employee_list,
     PosterSplash: PosterSplash,
     SeekerSplash: SeekerSplash,
     Careerlist: CareerList,

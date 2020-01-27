@@ -1,19 +1,44 @@
 import * as React from 'react';
 import axios from 'axios';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Alert } from 'react-native';
 import { Textarea } from 'native-base';
 import { TextInput } from 'react-native-gesture-handler';
 
 export default class SeekerSplash extends React.Component {
 
     constructor(props) {
-        super(props)
+        super(props);
+        this.state = {
+            companyID: '',
+        };
     }
 
     handleNew = () => {
         this.props.navigation.navigate('Employer')
     }
 
+    showAlert = (message) => {
+        Alert.alert("Invalid ID",
+        message)
+    } 
+
+    handleNextClick = () => {
+        if(this.state.companyID === ''){
+            this.showAlert("Your ID cannot be empty.")
+
+        }
+        else if(isNaN(this.state.companyID)){
+            this.showAlert("Your ID should be numbers only.")
+         }
+        else if (this.state.companyID.length != "8") {
+            this.showAlert("Your ID should be 8 digits long.")
+        } 
+        else {
+            this.props.navigation.navigate('Employeelist', {
+                index: this.state.companyID
+            })
+        }
+    }
 
 
     render() {
@@ -31,14 +56,17 @@ export default class SeekerSplash extends React.Component {
                             Please enter the 8-digit company ID number provided with your registry.
                         </Text>
                         <TextInput
-                            maxLength={8}
                             style={styles.idinput}
+                            maxLength = {8}
+                            value={this.state.companyID}
+                            onChangeText={(companyID) => this.setState({ companyID })}
                             placeholder="8-digit ID">
 
                         </TextInput>
                         <TouchableOpacity
-                        style = {styles.proceedButon}>
-                            <Text style = {styles.proceedText}>
+                            style={styles.proceedButon}
+                            onPress={this.handleNextClick}>
+                            <Text style={styles.proceedText}>
                                 Next
                             </Text>
                         </TouchableOpacity>
@@ -61,8 +89,8 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         backgroundColor: "bisque"
     },
-    proceedText: { 
-        fontSize: 16,       
+    proceedText: {
+        fontSize: 16,
     },
     proceedButon: {
         padding: 10,
