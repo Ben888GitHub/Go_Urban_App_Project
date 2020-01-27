@@ -46,8 +46,12 @@ functions:
           path: /addEmployees
           cors: true
           integration: LAMBDA
-      # - http:
-      #     method: POST
-      #     path: /companies/add
-      #     cors: true
-      #     integration: LAMBDA
+
+  companiesGetById:
+    handler: handler.companiesGetById
+    events:
+      - http:
+          method: GET
+          path: /companies/{id}
+          cors: true
+          integration: LAMBDA

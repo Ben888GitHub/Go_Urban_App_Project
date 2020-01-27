@@ -172,3 +172,35 @@ exports.addEmployees = (event, context, callback) => {
       .catch(error => callback(error));
   });
 };
+
+exports.companiesGetById = (event, context, callback) => {
+  context.callbackWaitsForEmptyEventLoop = false;
+  connectorMonogodb.then(() => {
+    Companies.findById(event.pathParameters.id)
+      .then(companies => {
+        console.log(companies);
+
+        callback(null, {
+          statusCode: 200,
+          body: companies
+        });
+      })
+      .catch(error => callback(error));
+  });
+};
+
+// exports.companiesGetById = (event, context, callback) => {
+//   context.callbackWaitsForEmptyEventLoop = false;
+//   return connectorMonogodb
+//     .then(() => {
+//       Companies.find({ id: event.pathParameters.id });
+//     })
+//     .then(companies => {
+//       console.log(companies);
+//       callback(null, {
+//         statusCode: 200,
+//         body: companies
+//       });
+//     })
+//     .catch(error => callback(error));
+// };
