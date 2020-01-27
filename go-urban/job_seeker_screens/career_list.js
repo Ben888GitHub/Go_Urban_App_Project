@@ -8,14 +8,12 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 
 export default class Careerlist extends React.Component{
 
-
     constructor(props) {
         super(props);
         this.state = {
             isReady: false,
             companies: [],
         };
-
     }
 
     componentDidMount() {
@@ -38,7 +36,7 @@ export default class Careerlist extends React.Component{
                                 textAlign = 'center'/>
                         </View>
                         <View style = {styles.col2}>
-                                <Text style = {styles.jobTitle}>{item.profession} | {item.location} | {item.annualSalary} </Text>
+                                <Text style = {styles.jobTitle}>{item.companyName} | {item.location} | {item.annualSalary} </Text>
                                 <Text style = {styles.jobDes}>Job Title: {item.profession}    Gender: {item.gender}</Text>
                                 <Text style = {styles.jobDes}>{item.jobDesc}</Text>
                                 <Button style = {styles.applyBut}>

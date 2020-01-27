@@ -35,7 +35,8 @@ export default class PosterSplash extends React.Component {
 
                         </TextInput>
                         <TouchableOpacity
-                        style = {styles.proceedButon}>
+                        style = {styles.proceedButon}
+                        onPress = {() => this.props.navigation.navigate('Careerlist')}>
                             <Text style = {styles.proceedText}>
                                 Next
                             </Text>
