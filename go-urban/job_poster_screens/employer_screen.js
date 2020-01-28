@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, KeyboardAvoidingView, Alert } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, KeyboardAvoidingView, Alert } from 'react-native';
 import { Picker, Form, Textarea } from 'native-base';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 const axios = require('axios').default;
@@ -68,13 +68,16 @@ export default class EmployerScreen extends React.Component {
             text: 'Post',
 
             onPress: () => {
-              this.props.navigation.navigate('Employerlist')
+              this.props.navigation.navigate('ThankPoster', 
+              {idNum: newJob.id}
+              )
               axios.post('https://kwzcxp9w01.execute-api.us-east-1.amazonaws.com/dev/addCompanies', newJob)
                 .then(response => {
                   console.log(JSON.stringify(response.data.body))
                 }).catch((error) => {
                   console.log(error)
                 })
+
             }
           }
         ]

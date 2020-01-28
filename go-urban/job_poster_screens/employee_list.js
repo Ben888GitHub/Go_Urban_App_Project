@@ -7,41 +7,34 @@ export default class EmployerScreen2 extends React.Component {
         super(props);
         this.state = {
             isReady: false,
-            currentCompany: {},
+            currentCompany: this.props.navigation.state.params.currentCompany,
             employees: [],
             suitableEmployees: [],
         };
     }
 
     componentDidMount() {
-        axios.get('https://kwzcxp9w01.execute-api.us-east-1.amazonaws.com/dev/companies')
+        axios.get('https://kwzcxp9w01.execute-api.us-east-1.amazonaws.com/dev/employees')
             .then(res => {
-                const currentCompany = res.data.body[0]
-                this.setState({ currentCompany })
-                axios.get('https://kwzcxp9w01.execute-api.us-east-1.amazonaws.com/dev/employees')
-                    .then(res => {
-                        const employees = res.data.body;
-                        this.setState({ employees })
-                        this.setState({ isReady: true })              
-                        console.log(this.state.employees[0].profession.includes("Dish Washer"))
-                        console.log(this.state.employees.length)
-                        for (var i = 0; i < this.state.employees.length; i++) {
-                            if(this.state.employees[i].profession.includes("Dish Washer")){
-                                console.log(this.state.employees[i])
-                                this.state.suitableEmployees.push(this.state.employees[i])
-                                console.log(this.state.suitableEmployees) 
-                            }
-                        }
-                    })
+                const employees = res.data.body;
+                var suitableEmployeesTemp = [];
+                this.setState({ employees })
+                this.setState({ isReady: true })
+                for (var i = 0; i < this.state.employees.length; i++) {
+                    if (this.state.employees[i].profession.includes(this.state.currentCompany.profession[0])) {
+                        suitableEmployeesTemp.push(this.state.employees[i])
+                    }
+                }
+                this.setState({ suitableEmployees: suitableEmployeesTemp})
             })
+
     }
 
 
 
     renderCards() {
-        return this.state.employees.map((item) => {
+        return this.state.suitableEmployees.map((item) => {
             return (
-                
                 <View style={styles.card}>
                     <View style={styles.cardTop}>
                         <Text style={styles.cardTitle}>
@@ -73,8 +66,8 @@ export default class EmployerScreen2 extends React.Component {
     render() {
         if (!this.state.isReady) {
             return (
-                <View style = {styles.containerTop}>
-                    <Image source ={require('./../assets/loading.gif')}></Image>
+                <View style={styles.containerTop}>
+                    <Image source={require('./../assets/loading.gif')}></Image>
                 </View>
             )
         }
@@ -82,7 +75,7 @@ export default class EmployerScreen2 extends React.Component {
             <View style={styles.container}>
                 <View style={styles.containerTop}>
                     <Text style={styles.topText}>
-                        My Company: {this.props.navigation.state.params.index}
+                        My Company: {this.state.currentCompany.companyName}
                     </Text>
                 </View>
                 <View style={styles.containerBottom}>

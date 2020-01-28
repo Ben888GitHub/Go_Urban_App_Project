@@ -17,6 +17,10 @@ export default class PosterSplash extends React.Component {
         this.props.navigation.navigate('Employee')
     }
 
+    handleOnPress =() => {
+        this.props.navigation.navigate('Employee_profile')
+    }
+
     // handleNextClick = () => {
     //     if(this.state.employeeID === ''){
     //         this.showAlert("Your ID cannot be empty.")
@@ -57,7 +61,7 @@ export default class PosterSplash extends React.Component {
                         </TextInput>
                         <TouchableOpacity
                         style = {styles.proceedButon}
-                        onPress = {this.props.navigation.navigate('Employee_profile')}>
+                        onPress = {this.handleOnPress}>
                             <Text style = {styles.proceedText}>
                                 Next
                             </Text>
