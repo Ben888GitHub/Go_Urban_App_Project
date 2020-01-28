@@ -1,6 +1,6 @@
 import * as React from 'react';
 import axios from 'axios';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Alert, Image, TouchableOpacity } from 'react-native';
 import { Textarea } from 'native-base';
 import { TextInput } from 'react-native-gesture-handler';
 
@@ -9,37 +9,65 @@ export default class PosterSplash extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            employeeids: [],
             employeeID: '',
+            isReady: false,
         };
     }
+    componentDidMount() {
+        axios.get('https://kwzcxp9w01.execute-api.us-east-1.amazonaws.com/dev/employees')
+            .then(res => {
+                const employees = res.data.body
+                console.log(employees)
+                listOfID = []
+                for (let i = 0; i < employees.length; i++) {
+                    listOfID.push(employees[i].id)
+                }
+                this.setState({ employeeids: listOfID })
+                this.setState({ isReady: true })
+            })
+    }
+
 
     handleNew = () => {
         this.props.navigation.navigate('Employee')
     }
 
-    handleOnPress =() => {
-        this.props.navigation.navigate('Employee_profile')
+
+    showAlert = (message) => {
+        Alert.alert("Invalid ID",
+            message)
     }
 
-    // handleNextClick = () => {
-    //     if(this.state.employeeID === ''){
-    //         this.showAlert("Your ID cannot be empty.")
+    handleNextClick = () => {
+        if (this.state.employeeID === '') {
+            this.showAlert("Your ID cannot be empty.")
 
-    //     }
-    //     else if(isNaN(this.state.employeeID)){
-    //         this.showAlert("Your ID should be numbers only.")
-    //      }
-    //     else if (this.state.employeeID.length != "10") {
-    //         this.showAlert("Your ID should be 10 digits long.")
-    //     } 
-    //     else {
-    //         this.props.navigation.navigate('Employee_profile', {
-    //             index: this.state.employeeID
-    //         })
-    //     }
-    // }
+        }
+        else if (isNaN(this.state.employeeID)) {
+            this.showAlert("Your ID should be numbers only.")
+        }
+        else if (this.state.employeeID.length != "10") {
+            this.showAlert("Your ID should be 10 digits long.")
+        }
+        else if (this.state.employeeids.includes(parseInt(this.state.employeeID)) === false) {
+            this.showAlert("Your company ID does not exist.")
+        }
+        else {
+            this.props.navigation.navigate('Employee_profile', {
+                id: this.state.employeeID
+            })
+        }
+    }
 
     render() {
+        if (!this.state.isReady) {
+            return (
+                <View style={styles.containerTop}>
+                    <Image source={require('./../assets/loading.gif')}></Image>
+                </View>
+            )
+        }
         return (
             <View style={styles.container}>
 
@@ -56,13 +84,15 @@ export default class PosterSplash extends React.Component {
                         <TextInput
                             maxLength={10}
                             style={styles.idinput}
+                            value={this.state.employeeID}
+                            onChangeText={(employeeID) => this.setState({ employeeID })}
                             placeholder="10-digit user ID">
 
                         </TextInput>
                         <TouchableOpacity
-                        style = {styles.proceedButon}
-                        onPress = {this.handleOnPress}>
-                            <Text style = {styles.proceedText}>
+                            style={styles.proceedButon}
+                            onPress={this.handleNextClick}>
+                            <Text style={styles.proceedText}>
                                 Next
                             </Text>
                         </TouchableOpacity>
@@ -85,8 +115,8 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         backgroundColor: "lightgrey"
     },
-    proceedText: { 
-        fontSize: 16,       
+    proceedText: {
+        fontSize: 16,
     },
     proceedButon: {
         padding: 10,

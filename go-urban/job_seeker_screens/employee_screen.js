@@ -1,13 +1,16 @@
 import * as React from 'react';
 import { CheckBox, ListItem, Picker, Textarea } from 'native-base';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
+import { ScrollView, TextInput } from 'react-native-gesture-handler';
+const axios = require('axios').default;
 
 export default class EmployeeScreen2 extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      idNum: Math.floor(Math.random() * 9000000000 + 1000000000),
       name: "",
+      location: "",
       gender: "none",
       ageGroup: "none",
       education: "none",
@@ -21,38 +24,94 @@ export default class EmployeeScreen2 extends React.Component {
       gardening: false,
     }
   }
-  // handleClick = () => {
 
-  //   newJob = {
-  //     companyName: this.state.companyName,
-  //     profession: this.state.jobType,
-  //     gender: this.state.gender,
-  //     ageGroup: this.state.ageGroup,
-  //     annualSalary: this.state.salary,
-  //     jobDesc: this.state.jobDesc,
-  //   };
-  //   Alert.alert(
-  //     'Post Job',
-  //     `Are you sure you want to post this?` +
-  //     `\n\nCompany Name: ${newJob.companyName}` +
-  //     `\nProfession: ${newJob.profession}` +
-  //     `\nGender: ${newJob.gender}` +
-  //     `\nAge Group: ${newJob.ageGroup}` +
-  //     `\nAnnual Salary: ${newJob.annualSalary}` +
-  //     `\n\nJob Description: ${newJob.jobDesc}`,
-  //     [
-  //       {
-  //         text: 'Cancel',
-  //         onPress: () => { },
-  //         style: 'cancel',
-  //       },
-  //       {
-  //         text: 'Post',
-  //         onPress: () => this.props.navigation.navigate('Employerlist')
-  //       }
-  //     ]
-  //   )
-  // }
+  updateName = (name) => {
+    this.setState({ name })
+  }
+  
+  updateLocation = (location) => {
+    this.setState({ location })
+  }
+
+  handleOnPress = () => {
+    if (this.state.name === "" ||
+      this.state.gender === "" ||
+      this.state.ageGroup === "none" ||
+      this.state.education === "none" ||
+      this.state.experience === "none")
+      Alert.alert("Empty fields",
+        "Some of the fields have not been selected.",
+        [
+          { text: 'OK' }
+        ])
+    else {
+      skillsList = []
+      if(this.state.cleaning){
+        skillsList.push("cleaning")
+      }
+      if(this.state.driving){
+        skillsList.push("driving")
+      }
+      if(this.state.mason){
+        skillsList.push("mason")
+      }
+      if(this.state.dish){
+        skillsList.push("dish")
+      }
+      if(this.state.housekeeping){
+        skillsList.push("housekeeping")
+      }
+      if(this.state.cleaning){
+        skillsList.push("factory")
+      }
+      if(this.state.gardening){
+        skillsList.push("gardening")
+      }
+      if(skillsList.length== 0){
+        skillsList.push("other")
+      }
+      newEmployee = {
+          "profession" : skillsList,
+          "id" : this.state.idNum,
+          "employeeName" : this.state.name,
+          "gender" : this.state.gender,
+          "ageGroup" : this.state.ageGroup,
+          "education" : this.state.education,
+          "salary" : "N/A",
+          "experience" : this.state.experience,
+          "location" : this.state.location
+      }
+      console.log(newEmployee)
+      Alert.alert(
+        'New Employee Listing',
+        `Are you sure you want to post this?` +
+        `\n\nEmployee Name: ${newEmployee.employeeName}` +
+        `\n\nID Number : ${newEmployee.id}`,
+        [
+          {
+            text: 'Cancel',
+            style: 'cancel',
+          },
+          {
+            text: 'Post',
+
+            onPress: () => {
+              this.props.navigation.navigate('ThankPoster', 
+              {idNum: newEmployee.id}
+              )
+              axios.post('https://kwzcxp9w01.execute-api.us-east-1.amazonaws.com/dev/addEmployees', newEmployee)
+                .then(response => {
+                  console.log(JSON.stringify(response.data.body))
+                }).catch((error) => {
+                  console.log(error)
+                })
+
+            }
+          }
+        ]
+      )
+    }
+  }
   updateAgeGroup = (ageGroup) => {
     this.setState({ ageGroup: ageGroup })
   }
@@ -75,7 +134,15 @@ export default class EmployeeScreen2 extends React.Component {
           <ScrollView>
             <Text style={styles.mediumText}>New Employee Listing</Text>
             <Text style={styles.labelText}>Your name:</Text>
-            <Textarea style={styles.inputStyling} rowSpan={2} bordered placeholder="Full Name" />
+            <TextInput 
+            style={styles.inputStyling} 
+            onChangeText = {this.updateName}
+            bordered placeholder="Full Name" />
+            <Text style={styles.labelText}>Your current country:</Text>
+            <TextInput 
+            style={styles.inputStyling} 
+            onChangeText = {this.updateLocation}
+            bordered placeholder="Your country " />
             <Text style={styles.labelText}>More about yourself</Text>
             <View style={styles.containerStyling}>
               <Picker
@@ -91,10 +158,10 @@ export default class EmployeeScreen2 extends React.Component {
                 selectedValue={this.state.ageGroup}
                 onValueChange={this.updateAgeGroup}>
                 <Picker.Item label="Age Group..." value="none" />
-                <Picker.Item label="18-30" value="young" />
-                <Picker.Item label="30-40" value="thirties" />
-                <Picker.Item label="40-50" value="forties" />
-                <Picker.Item label="50+" value="Old" />
+                <Picker.Item label="18-30" value={18} />
+                <Picker.Item label="30-40" value={30} />
+                <Picker.Item label="40-50" value={40} />
+                <Picker.Item label="50+" value={50} />
               </Picker>
 
             </View>
@@ -117,12 +184,12 @@ export default class EmployeeScreen2 extends React.Component {
                 onValueChange={this.updateExperience}>
                 <Picker.Item label="Experience..." value="none" />
                 <Picker.Item label="No previous work experience" value="no" />
-                <Picker.Item label="1 year of experience" value="1" />
-                <Picker.Item label="2 years of experience" value="2" />
-                <Picker.Item label="3 years of experience" value="3" />
-                <Picker.Item label="4 years of experience" value="4" />
-                <Picker.Item label="5 years of experience" value="5" />
-                <Picker.Item label="5+ years of experience" value="5+" />
+                <Picker.Item label="1 year of experience" value="1 year" />
+                <Picker.Item label="2 years of experience" value="2 years" />
+                <Picker.Item label="3 years of experience" value="3 years" />
+                <Picker.Item label="4 years of experience" value="4 years" />
+                <Picker.Item label="5 years of experience" value="5 years" />
+                <Picker.Item label="5+ years of experience" value="5+ years" />
               </Picker>
             </View>
             <Text style={styles.labelText}>Your skills</Text>
@@ -133,7 +200,7 @@ export default class EmployeeScreen2 extends React.Component {
                   onPress={() => this.setState({ cleaning: !this.state.cleaning })} />
                 <Text style={styles.checkBoxStyling}>Cleaning</Text>
               </ListItem>
-              <ListItem onPress={() => this.setState({ driving: !this.state.cleaning })}>
+              <ListItem onPress={() => this.setState({ driving: !this.state.driving })}>
                 <CheckBox
                   checked={this.state.driving}
                   onPress={() => this.setState({ driving: !this.state.driving })} />
@@ -171,7 +238,7 @@ export default class EmployeeScreen2 extends React.Component {
               </ListItem>
             </View>
             <TouchableOpacity style={styles.button}
-              onPress={() => this.props.navigation.navigate('Careerlist')}>
+              onPress={this.handleOnPress}>
               <Text style={styles.buttonText}>Sign Up</Text>
             </TouchableOpacity>
           </ScrollView>
@@ -211,10 +278,12 @@ const styles = StyleSheet.create({
     fontSize: 50,
   },
   inputStyling: {
+    marginVertical: 10,
     marginHorizontal: 30,
     backgroundColor: "white",
     fontSize: 18,
     borderRadius: 4,
+    padding: 10,
   },
   labelText: {
     fontSize: 20,

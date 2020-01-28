@@ -1,8 +1,6 @@
 import * as React from 'react';
 import axios from 'axios';
 import { StyleSheet, Text, View, TouchableOpacity, Alert, Image } from 'react-native';
-import { AppLoading } from 'expo';
-import symbolicateStackTrace from 'react-native/Libraries/Core/Devtools/symbolicateStackTrace';
 import { ScrollView } from 'react-native-gesture-handler';
 import { ThemeConsumer } from 'react-native-elements';
 
@@ -10,7 +8,7 @@ export default class PosterProfile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            companyExists: false,
+            isReady: false,
             companies: [],
             currentCompany: {},
             myCompanyID: this.props.navigation.state.params.id,

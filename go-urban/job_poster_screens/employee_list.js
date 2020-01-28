@@ -19,13 +19,13 @@ export default class EmployerScreen2 extends React.Component {
                 const employees = res.data.body;
                 var suitableEmployeesTemp = [];
                 this.setState({ employees })
-                this.setState({ isReady: true })
                 for (var i = 0; i < this.state.employees.length; i++) {
                     if (this.state.employees[i].profession.includes(this.state.currentCompany.profession[0])) {
                         suitableEmployeesTemp.push(this.state.employees[i])
                     }
                 }
-                this.setState({ suitableEmployees: suitableEmployeesTemp})
+                this.setState({ suitableEmployees: suitableEmployeesTemp })
+                this.setState({ isReady: true })
             })
 
     }

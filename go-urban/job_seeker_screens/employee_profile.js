@@ -1,131 +1,167 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import axios from 'axios';
-import { BorderlessButton } from 'react-native-gesture-handler';
-import { Button } from 'native-base';
+import { StyleSheet, Text, View, TouchableOpacity, Alert, Image } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
+import { ThemeConsumer } from 'react-native-elements';
 
-export default class Careerlist extends React.Component{
-
+export default class PosterProfile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             isReady: false,
             employees: [],
-        };
+            currentEmployee: {},
+            myEmployeeID: this.props.navigation.state.params.id,
+            skills: ''
+        }
     }
 
-    handleNew = () => {
-        this.props.navigation.navigate('Careerlist')
+    updateCurrentEmployee = (currentEmployee) => {
+        this.setState({ currentEmployee })
     }
+
     componentDidMount() {
         axios.get('https://kwzcxp9w01.execute-api.us-east-1.amazonaws.com/dev/employees')
             .then(res => {
-                const employees = res.data.body;
+                const employees = res.data.body
                 this.setState({ employees })
-                this.setState({ isReady: true })
+                for (let i = 0; i < employees.length; i++) {
+                    if (this.state.employees[i].id == this.state.myEmployeeID) {
+                        this.updateCurrentEmployee(this.state.employees[i])
+                    }
+                    this.setState({ isReady: true })
+                }
+                skills = ''
+                skills = this.state.currentEmployee.profession.join(", ")
+                this.setState({ skills: skills })
             })
     }
 
-    render(){
-        return(
-        <View style = {styles.container}>
-            <View style = {styles.topContainer}>
+    render() {
+        if (!this.state.isReady) {
+            return (
+                <View style={styles.loadingView}>
+                    <Image source={require('./../assets/loading.gif')}></Image>
+                </View>
+            )
+        }
 
-                <Image
-                    source={require('./../assets/pfp.png')}
-                    style={styles.image} />
-                <Text style = {styles.profile}>Benedit</Text>
+        return (
+            <View style={styles.container}>
+                <View style={styles.containerTop}>
+                    <Text style={styles.titleText}>
+                        Welcome back, {this.state.currentEmployee.employeeName}
+                    </Text>
+
+                </View>
+                <View style={styles.containerBottom}>
+                    <ScrollView>
+                        <View style={styles.paddedView}>
+                            <Text style={styles.headerText}>
+                                Employee Name
+                            </Text>
+                            <Text style={styles.infoText}>
+                                {this.state.currentEmployee.employeeName}
+                            </Text>
+
+                            <Text style={styles.headerText}>
+                                Gender
+                            </Text>
+                            <Text style={styles.infoText}>
+                                {this.state.currentEmployee.gender}
+                            </Text>
+
+                            <Text style={styles.headerText}>
+                                Skills
+                            </Text>
+                            <Text style={styles.infoText}>
+                                {this.state.skills}
+                            </Text>
+
+                            <Text style={styles.headerText}>
+                                Age Group
+                            </Text>
+                            <Text style={styles.infoText}>
+                                {this.state.currentEmployee.ageGroup}+
+                            </Text>
+
+                            <Text style={styles.headerText}>
+                                Country of Residence
+                            </Text>
+                            <Text style={styles.infoText}>
+                                {this.state.currentEmployee.location}
+                            </Text>
+                        </View>
+                    </ScrollView>
+                    <TouchableOpacity
+                        onPress={() => {
+                            this.props.navigation.navigate('Careerlist',
+                                { currentEmployee: this.state.currentEmployee, });
+                        }}>
+                        <View style={styles.buttonHolder}>
+                            <Text style={styles.nextText}>
+                                View Potential Jobs
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
             </View>
-            <View style = {styles.botContainer}>
-                <View style ={styles.skillBox}>
-                    <Text style = {styles.skillTit}>Skill</Text>
-                    <Text style = {styles.skillName}>Driving</Text>
-                </View>
-                <View style ={styles.skillBox}>
-                    <Text style = {styles.skillTit}>Education</Text>
-                    <Text style = {styles.skillName}>Primary School</Text>
-                </View>
-                <View style ={styles.skillBox}>
-                    <Text style = {styles.skillTit}>Experience</Text>
-                    <Text style = {styles.skillName}>2 years</Text>
-                </View>
-                <View styles ={styles.skillBox}>
-                    <Text style = {styles.skillTit}>
-                        Potential employers</Text>
-                    <Button style ={styles.botStyle}
-                        onPress={this.handleNew}>
-                        <Text style={styles.newText}>
-                            Click Here
-                        </Text>
-                    </Button>                   
-                </View>
-            </View>
-        </View>
-        )}
-    };
+        )
+    }
+}
 
 const styles = StyleSheet.create({
-    container:{
-        flex: 1,        
-    },
-
-    topContainer:{
-        flex: 2,
-        backgroundColor: 'bisque',
-        paddingBottom: 20,
-        paddingTop: 20,
-    },
-
-    botContainer:{
-        flex: 4,
-        backgroundColor: 'slateblue',
-    },
-
-    image: {
+    container: {
         flex: 1,
-        paddingTop: 40,
-        width: null,
-        height: null,
-        resizeMode: "contain"
+        flexDirection: "column",
+        backgroundColor: 'lightgrey',
     },
-
-    profile:{
-        textAlign: "center",
-        fontSize: 50,        
+    containerTop: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
     },
-
-    skillBox:{
-        //backgroundColor: '#EFF1F5',
-        height: 100,
-    },
-
-    skillTit:{
-        fontSize: 30,
-        fontWeight: 'bold',
-        paddingTop: 20,
-        paddingLeft: 40,
-        color: 'white',
-    },
-
-    skillName: {
-        paddingTop: 10,
-        paddingLeft: 70,
-        color: 'white', 
+    nextText: {
+        paddingBottom: 20,
         fontSize: 20,
+        fontWeight: 200,
     },
-
-    botStyle:{
-        width: 120,
-        alignSelf: "center",
+    containerBottom: {
+        backgroundColor: "crimson",
+        flex: 6,
+    },
+    paddedView: {
+        padding: 20,
+    },
+    titleText: {
+        fontSize: 24,
+    },
+    loadingView: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    headerText: {
         marginTop: 20,
-        backgroundColor: 'white',
-    },
-
-    newText: {
-        color: "black",
-        textAlign: "center",
+        color: "white",
         fontSize: 16,
-        marginLeft: 22,
+        fontWeight: 300,
     },
+    infoText: {
+        fontSize: 42,
+        color: "white",
+        fontWeight: 600,
+    },
+    descText: {
+        paddingTop: 10,
+        fontSize: 24,
+        color: "white",
 
+    },
+    buttonHolder: {
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: 'pink',
+        height: 70,
+    }
 })

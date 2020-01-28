@@ -8,7 +8,7 @@ export default class EmployerScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      idNum: Math.floor(Math.random() * 90000000 + 10000000).toString(),
+      idNum: Math.floor(Math.random() * 90000000 + 10000000),
       companyName: '',
       jobDesc: '',
       location: '',
@@ -48,7 +48,7 @@ export default class EmployerScreen extends React.Component {
         "jobDesc": this.state.jobDesc,
         "location": this.state.location,
       };
-      console.log(newJob.id)
+      console.log(newJob)
       Alert.alert(
         'Post Job',
         `Are you sure you want to post this?` +
