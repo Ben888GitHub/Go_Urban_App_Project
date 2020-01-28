@@ -1,7 +1,6 @@
 import * as React from 'react';
 import axios from 'axios';
 import { StyleSheet, ScrollView, Text, View, Image, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
-import { AppLoading } from 'expo';
 
 export default class EmployerScreen2 extends React.Component {
     constructor(props) {
@@ -10,6 +9,7 @@ export default class EmployerScreen2 extends React.Component {
             isReady: false,
             currentCompany: {},
             employees: [],
+            suitableEmployees: [],
         };
     }
 
@@ -22,14 +22,26 @@ export default class EmployerScreen2 extends React.Component {
                     .then(res => {
                         const employees = res.data.body;
                         this.setState({ employees })
-                        this.setState({ isReady: true })
+                        this.setState({ isReady: true })              
+                        console.log(this.state.employees[0].profession.includes("Dish Washer"))
+                        console.log(this.state.employees.length)
+                        for (var i = 0; i < this.state.employees.length; i++) {
+                            if(this.state.employees[i].profession.includes("Dish Washer")){
+                                console.log(this.state.employees[i])
+                                this.state.suitableEmployees.push(this.state.employees[i])
+                                console.log(this.state.suitableEmployees) 
+                            }
+                        }
                     })
             })
     }
 
+
+
     renderCards() {
         return this.state.employees.map((item) => {
             return (
+                
                 <View style={styles.card}>
                     <View style={styles.cardTop}>
                         <Text style={styles.cardTitle}>
@@ -61,7 +73,9 @@ export default class EmployerScreen2 extends React.Component {
     render() {
         if (!this.state.isReady) {
             return (
-                <AppLoading />
+                <View style = {styles.containerTop}>
+                    <Image source ={require('./../assets/loading.gif')}></Image>
+                </View>
             )
         }
         return (
@@ -72,7 +86,7 @@ export default class EmployerScreen2 extends React.Component {
                     </Text>
                 </View>
                 <View style={styles.containerBottom}>
-                    <Text style = {styles.titleText}>
+                    <Text style={styles.titleText}>
                         Potential Employees
                     </Text>
                     <ScrollView>
@@ -89,7 +103,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: "column",
-        backgroundColor: 'bisque',
+        backgroundColor: "lightgrey",
     },
     titleText: {
         fontSize: 26,
@@ -111,7 +125,7 @@ const styles = StyleSheet.create({
         alignSelf: "flex-end",
         padding: 5,
         width: 55,
-        backgroundColor: "slateblue"
+        backgroundColor: "crimson"
     },
     containerTop: {
         flex: 1,
@@ -127,7 +141,7 @@ const styles = StyleSheet.create({
     containerBottom: {
         flex: 6,
         flexDirection: "column",
-        backgroundColor: "slateblue",
+        backgroundColor: "crimson",
     },
     cardBody: {
         fontSize: 16,
@@ -135,7 +149,7 @@ const styles = StyleSheet.create({
     },
     card: {
         borderRadius: 20,
-        backgroundColor: "bisque",
+        backgroundColor: "lightgrey",
         marginHorizontal: 10,
         marginTop: 20,
         height: 150,

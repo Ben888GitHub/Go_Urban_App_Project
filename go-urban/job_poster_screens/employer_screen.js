@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: 'bisque',
+    backgroundColor: 'lightgrey',
   },
   labelText: {
     fontSize: 20,
@@ -243,7 +243,7 @@ const styles = StyleSheet.create({
   bottomContainer: {
     flex: 6,
     padding: 20,
-    backgroundColor: "slateblue",
+    backgroundColor: "crimson",
     justifyContent: "flex-end",
   },
   nameHolder: {
@@ -298,7 +298,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   button: {
-    backgroundColor: 'bisque',
+    backgroundColor: 'lightgrey',
     overflow: 'hidden',
     padding: 10,
     alignItems: 'center',

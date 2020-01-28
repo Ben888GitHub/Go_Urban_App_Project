@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: "column",
-        backgroundColor: "bisque"
+        backgroundColor: "lightgrey"
     },
     proceedText: {
         fontSize: 16,
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     proceedButon: {
         padding: 10,
         borderRadius: 5,
-        backgroundColor: "bisque",
+        backgroundColor: "lightgrey",
         alignSelf: "center"
     },
     newText: {
@@ -128,6 +128,6 @@ const styles = StyleSheet.create({
         flex: 6,
         flexDirection: "column",
         justifyContent: "space-between",
-        backgroundColor: "slateblue"
+        backgroundColor: "crimson"
     }
 })

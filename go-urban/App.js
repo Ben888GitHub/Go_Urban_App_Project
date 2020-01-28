@@ -7,6 +7,7 @@ import Employee_list from './job_poster_screens/employee_list';
 import CareerList from './job_seeker_screens/career_list';
 import initialSplash from './initial_splash';
 import SeekerSplash from './job_poster_screens/poster_splash';
+import PosterProfile from './job_poster_screens/poster_profile';
 import PosterSplash from './job_seeker_screens/seeker_splash';
 import { createStore } from 'redux'
 
@@ -18,10 +19,11 @@ const RootStack = createStackNavigator(
     Employeelist: Employee_list,
     PosterSplash: PosterSplash,
     SeekerSplash: SeekerSplash,
+    PosterProfile: PosterProfile,
     Careerlist: CareerList,
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'PosterProfile',
   }
 );
 

@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     flexDirection: 'column',
-    backgroundColor: 'bisque',
+    backgroundColor: 'lightgrey',
   },
   mediumText: {
     marginTop: 10,
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
   },
   bottom_container: {
     flex: 5,
-    backgroundColor: "slateblue"
+    backgroundColor: "crimson"
 
   },
   pInfo: {
@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   button: {
-    backgroundColor: 'bisque',
+    backgroundColor: 'lightgrey',
     overflow: 'hidden',
     padding: 10,
     alignItems: 'center',

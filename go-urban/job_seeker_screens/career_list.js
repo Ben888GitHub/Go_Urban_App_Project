@@ -11,7 +11,6 @@ export default class Careerlist extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            isReady: false,
             companies: [],
         };
     }
@@ -21,7 +20,6 @@ export default class Careerlist extends React.Component{
             .then(res => {
                 const companies = res.data.body;
                 this.setState({ companies })
-                this.setState({ isReady: true })
             })
     }
 
@@ -90,19 +88,19 @@ export default class Careerlist extends React.Component{
 const styles = StyleSheet.create({
     contianer:{
         flex: 1,
-        backgroundColor: 'bisque',
+        backgroundColor: 'lightgrey',
     },
 
     topContianer:{
         flex: 1,
         height: 250,
-        backgroundColor: 'bisque',
+        backgroundColor: 'lightgrey',
 
     },
 
     secondaryContianer:{
         flex: 5,
-        backgroundColor: 'slateblue',
+        backgroundColor: 'crimson',
         paddingBottom: 20,
     },
 
