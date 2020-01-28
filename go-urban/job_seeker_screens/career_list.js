@@ -40,7 +40,7 @@ export default class Careerlist extends React.Component{
                                 <Text style = {styles.jobDes}>Job Title: {item.profession}    Gender: {item.gender}</Text>
                                 <Text style = {styles.jobDes}>{item.jobDesc}</Text>
                                 <Button style = {styles.applyBut}>
-                                    <Text style = {{marginLeft: 22, color: "white", alignSelf: "center"}}>Details</Text>
+                                    <Text style = {{marginLeft: 22, color: "white", alignSelf: "center"}}>Apply</Text>
                                 </Button>
                         </View>
                     </View>
@@ -61,7 +61,7 @@ export default class Careerlist extends React.Component{
                         {this.renderCards()}
                     </ScrollView>
                 </View>          
-                <Footer>
+                {/* <Footer>
                     <FooterTab>
                         <Button active={this.state} onPress={() => this.props.navigation.navigate('Careerlist')}>
                         <Icon name="home" />
@@ -80,7 +80,7 @@ export default class Careerlist extends React.Component{
                         <Text>Setting</Text>
                         </Button>
                     </FooterTab>
-                    </Footer> 
+                    </Footer>  */}
             </View>
         )
     }
@@ -163,5 +163,6 @@ const styles = StyleSheet.create({
         marginRight: 30,
         alignSelf: "flex-end",
         alignItems: "center",
+        backgroundColor: 'slateblue',
     },
 })
