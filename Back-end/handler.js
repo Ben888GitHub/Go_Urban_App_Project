@@ -60,9 +60,7 @@ const Employee = mongoose.model("Employee", employeeSchema);
 // });
 
 exports.gourbanapp = (event, context, callback) => {
-  // awsServerlessExpress.proxy(the_server, event, context);
   context.callbackWaitsForEmptyEventLoop = false;
-
   connectorMonogodb.then(() => {
     Companies.find()
       .then(companies => {
@@ -175,32 +173,79 @@ exports.addEmployees = (event, context, callback) => {
 
 exports.companiesGetById = (event, context, callback) => {
   context.callbackWaitsForEmptyEventLoop = false;
-  connectorMonogodb.then(() => {
-    Companies.findById(event.pathParameters.id)
-      .then(companies => {
-        console.log(companies);
-
+  return connectorMonogodb.then(() => {
+    Companies.find({ id: event.queryStringParameters.id })
+      .then(companies =>
         callback(null, {
           statusCode: 200,
-          body: companies
-        });
-      })
+          body: JSON.stringify(companies)
+        })
+      )
       .catch(error => callback(error));
   });
 };
+
+// todo
+// exports.companiesGetById = (event, context, callback) => {
+//   connectorMonogodb.then(() => {
+//     const id = event.body.id;
+
+//     const newCompaniesID = new Companies({
+//       id
+//     });
+//     newCompaniesID
+//       .save()
+//       .then(res => {
+//         callback(null, { statusCode: 200, body: res });
+//       })
+//       .catch(error => callback(error));
+//   });
+// };
 
 // exports.companiesGetById = (event, context, callback) => {
 //   context.callbackWaitsForEmptyEventLoop = false;
 //   return connectorMonogodb
 //     .then(() => {
-//       Companies.find({ id: event.pathParameters.id });
+//       Companies.find({ id: event.queryStringParameters.id });
 //     })
 //     .then(companies => {
 //       console.log(companies);
 //       callback(null, {
 //         statusCode: 200,
-//         body: companies
+//         body: JSON.stringify(companies)
 //       });
 //     })
 //     .catch(error => callback(error));
 // };
+
+// exports.authenticate = (event, context, callback) => {
+//   context.callbackWaitsForEmptyEventLoop = false;
+//   functions.connectToDatabase()
+//     .then(collection => {
+//       console.log(JSON.parse(event.body));
+//       let requete = {
+//         'accname': JSON.parse(event.body).accname,
+//         'pin': JSON.parse(event.body).pin,
+//       };
+//       collection.find(requete).toArray((error, result) => {
+//         if (error) {
+//           callback(null, {
+//             statusCode: 500,
+//             body: JSON.stringify(error)
+//           });
+//           // return response.status(500).send(error);
+//         }
+//         callback(null, {
+//           statusCode: 200,
+//           body: JSON.stringify(result)
+//         });
+//       });
+//     })
+//     .catch(err => {
+//       console.log('=> an error occurred: ', err);
+//       callback(err);
+//     });
+// };
+
+// var id = event.pathParameters.id;
+// console.log(id);
