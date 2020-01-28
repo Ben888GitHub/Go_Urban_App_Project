@@ -8,11 +8,32 @@ export default class PosterSplash extends React.Component {
 
     constructor(props) {
         super(props)
+        this.state = {
+            employeeID: '',
+        };
     }
 
     handleNew = () => {
         this.props.navigation.navigate('Employee')
     }
+
+    // handleNextClick = () => {
+    //     if(this.state.employeeID === ''){
+    //         this.showAlert("Your ID cannot be empty.")
+
+    //     }
+    //     else if(isNaN(this.state.employeeID)){
+    //         this.showAlert("Your ID should be numbers only.")
+    //      }
+    //     else if (this.state.employeeID.length != "10") {
+    //         this.showAlert("Your ID should be 10 digits long.")
+    //     } 
+    //     else {
+    //         this.props.navigation.navigate('Employee_profile', {
+    //             index: this.state.employeeID
+    //         })
+    //     }
+    // }
 
     render() {
         return (
@@ -36,7 +57,7 @@ export default class PosterSplash extends React.Component {
                         </TextInput>
                         <TouchableOpacity
                         style = {styles.proceedButon}
-                        onPress = {() => this.props.navigation.navigate('Careerlist')}>
+                        onPress = {this.props.navigation.navigate('Employee_profile')}>
                             <Text style = {styles.proceedText}>
                                 Next
                             </Text>
