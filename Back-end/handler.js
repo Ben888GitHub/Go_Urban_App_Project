@@ -48,7 +48,7 @@ const employeeSchema = new Schema(
     location: { type: String, required: true }
   },
   {
-    timestamps: false
+    timestamps: true
   }
 );
 

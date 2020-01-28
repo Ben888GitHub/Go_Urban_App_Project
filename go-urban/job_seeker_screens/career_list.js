@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { CheckBox, ListItem, Picker, Textarea, Title, Card, CardItem, Body, Button, Footer, FooterTab, Icon, Right, Left } from 'native-base';
+import { Button, Footer, FooterTab, Icon} from 'native-base';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import {Ionicons} from "@expo/vector-icons";
@@ -8,14 +8,12 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 
 export default class Careerlist extends React.Component{
 
-
     constructor(props) {
         super(props);
         this.state = {
             isReady: false,
             companies: [],
         };
-
     }
 
     componentDidMount() {
@@ -38,11 +36,11 @@ export default class Careerlist extends React.Component{
                                 textAlign = 'center'/>
                         </View>
                         <View style = {styles.col2}>
-                                <Text style = {styles.jobTitle}>{item.profession} | {item.location} | {item.annualSalary} </Text>
+                                <Text style = {styles.jobTitle}>{item.companyName} | {item.location} | {item.annualSalary} </Text>
                                 <Text style = {styles.jobDes}>Job Title: {item.profession}    Gender: {item.gender}</Text>
                                 <Text style = {styles.jobDes}>{item.jobDesc}</Text>
                                 <Button style = {styles.applyBut}>
-                                    <Text style = {{marginLeft: 22, color: "white", alignSelf: "center"}}>Detial</Text>
+                                    <Text style = {{marginLeft: 22, color: "white", alignSelf: "center"}}>Apply</Text>
                                 </Button>
                         </View>
                     </View>
@@ -62,28 +60,27 @@ export default class Careerlist extends React.Component{
                     <ScrollView>
                         {this.renderCards()}
                     </ScrollView>
-                </View>
-                
-                <Footer>
+                </View>          
+                {/* <Footer>
                     <FooterTab>
-                        <Button vertical>
+                        <Button active={this.state} onPress={() => this.props.navigation.navigate('Careerlist')}>
                         <Icon name="home" />
                         <Text>Home</Text>
                         </Button>
-                        <Button vertical>
+                        <Button active={this.state} onPress={() => this.props.navigation.navigate('Career_offer')}>
                         <Icon name="paper" />
                         <Text>Offer</Text>
                         </Button>
-                        <Button vertical active>
+                        <Button active={this.state} onPress={() => this.props.navigation.navigate('Employee_profile')}>
                         <Icon active name="person" />
                         <Text>Profile</Text>
                         </Button>
-                        <Button vertical>
+                        <Button active={this.state} onPress={() => this.props.navigation.navigate('Setting')}>
                         <Icon name="settings" />
                         <Text>Setting</Text>
                         </Button>
                     </FooterTab>
-                    </Footer>
+                    </Footer>  */}
             </View>
         )
     }
@@ -166,5 +163,6 @@ const styles = StyleSheet.create({
         marginRight: 30,
         alignSelf: "flex-end",
         alignItems: "center",
+        backgroundColor: 'slateblue',
     },
 })

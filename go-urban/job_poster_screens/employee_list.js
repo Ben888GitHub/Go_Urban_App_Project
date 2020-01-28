@@ -1,25 +1,29 @@
 import * as React from 'react';
 import axios from 'axios';
-import { StyleSheet, Text, View, Image, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, ScrollView, Text, View, Image, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import { AppLoading } from 'expo';
-import { ScrollView } from 'react-native-gesture-handler';
 
 export default class EmployerScreen2 extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             isReady: false,
+            currentCompany: {},
             employees: [],
         };
-
     }
 
     componentDidMount() {
-        axios.get('https://kwzcxp9w01.execute-api.us-east-1.amazonaws.com/dev/employees')
+        axios.get('https://kwzcxp9w01.execute-api.us-east-1.amazonaws.com/dev/companies')
             .then(res => {
-                const employees = res.data.body;
-                this.setState({ employees })
-                this.setState({ isReady: true })
+                const currentCompany = res.data.body[0]
+                this.setState({ currentCompany })
+                axios.get('https://kwzcxp9w01.execute-api.us-east-1.amazonaws.com/dev/employees')
+                    .then(res => {
+                        const employees = res.data.body;
+                        this.setState({ employees })
+                        this.setState({ isReady: true })
+                    })
             })
     }
 
@@ -34,9 +38,9 @@ export default class EmployerScreen2 extends React.Component {
                     </View>
                     <View style={styles.cardBottom}>
                         <View style={styles.cardBottomLeft}>
-                            <Image 
-                            source = {require('./assets/pfp.png')}
-                            style = {styles.image}/>
+                            <Image
+                                source={require('./../assets/pfp.png')}
+                                style={styles.image} />
                         </View>
                         <View style={styles.cardBottomRight}>
                             <Text style={styles.cardBody}>
@@ -64,10 +68,13 @@ export default class EmployerScreen2 extends React.Component {
             <View style={styles.container}>
                 <View style={styles.containerTop}>
                     <Text style={styles.topText}>
-                        Employee List
+                        My Company: {this.props.navigation.state.params.index}
                     </Text>
                 </View>
                 <View style={styles.containerBottom}>
+                    <Text style = {styles.titleText}>
+                        Potential Employees
+                    </Text>
                     <ScrollView>
                         {this.renderCards()}
                     </ScrollView>
@@ -84,14 +91,20 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         backgroundColor: 'bisque',
     },
+    titleText: {
+        fontSize: 26,
+        color: "white",
+        margin: 20,
+        alignSelf: "center",
+    },
     detailsText: {
         color: "white"
     },
     image: {
-        flex:1,
+        flex: 1,
         width: null,
         height: null,
-        resizeMode:"contain"
+        resizeMode: "contain"
     },
     detailsButton: {
         margin: 5,
