@@ -7,26 +7,35 @@ import axios from 'axios';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 export default class Careerlist extends React.Component{
-
     constructor(props) {
         super(props);
         this.state = {
             isReady: false,
+            currentEmployee: this.props.navigation.state.params.currentEmployee,
             companies: [],
+            suitableCompanies: [],
         };
     }
 
     componentDidMount() {
+        console.log(this.state.currentEmployee.profession)
         axios.get('https://kwzcxp9w01.execute-api.us-east-1.amazonaws.com/dev/companies')
             .then(res => {
                 const companies = res.data.body;
-                this.setState({ companies })
+                var suitableCompaniesTemp = [];
+                this.setState({ companies });
+                for(var i = 0; i < this.state.companies.length; i++){
+                    if(this.state.currentEmployee.profession.includes(this.state.companies[i].profession[0])){
+                        suitableCompaniesTemp.push(this.state.companies[i])
+                    }
+                }
+                this.setState({ suitableCompanies: suitableCompaniesTemp })
                 this.setState({ isReady: true })
             })
     }
 
     renderCards() {
-        return this.state.companies.map((item) => {
+        return this.state.suitableCompanies.map((item) => {
             return (
                 <View style = {styles.cardDesign}>
                     <View style = {styles.row}>
@@ -89,19 +98,19 @@ export default class Careerlist extends React.Component{
 const styles = StyleSheet.create({
     contianer:{
         flex: 1,
-        backgroundColor: 'bisque',
+        backgroundColor: 'lightgrey',
     },
 
     topContianer:{
         flex: 1,
         height: 250,
-        backgroundColor: 'bisque',
+        backgroundColor: 'lightgrey',
 
     },
 
     secondaryContianer:{
         flex: 5,
-        backgroundColor: 'slateblue',
+        backgroundColor: 'crimson',
         paddingBottom: 20,
     },
 

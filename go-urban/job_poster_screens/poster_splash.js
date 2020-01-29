@@ -9,8 +9,25 @@ export default class SeekerSplash extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            companyids: [],
             companyID: '',
+            isReady: false,
+
         };
+    }
+
+    componentDidMount() {
+        axios.get('https://kwzcxp9w01.execute-api.us-east-1.amazonaws.com/dev/companies')
+            .then(res => {
+                const companies = res.data.body
+                console.log(companies)
+                listOfID = []
+                for (let i = 0; i < companies.length; i++) {
+                    listOfID.push(companies[i].id)
+                }
+                this.setState({ companyids: listOfID })
+                this.setState({ isReady: true })
+            })
     }
 
     handleNew = () => {
@@ -19,29 +36,38 @@ export default class SeekerSplash extends React.Component {
 
     showAlert = (message) => {
         Alert.alert("Invalid ID",
-        message)
-    } 
+            message)
+    }
 
     handleNextClick = () => {
-        if(this.state.companyID === ''){
+        if (this.state.companyID === '') {
             this.showAlert("Your ID cannot be empty.")
-
         }
-        else if(isNaN(this.state.companyID)){
+        else if (isNaN(this.state.companyID)) {
             this.showAlert("Your ID should be numbers only.")
-         }
+        }
         else if (this.state.companyID.length != "8") {
             this.showAlert("Your ID should be 8 digits long.")
-        } 
+        }
+        else if (this.state.companyids.includes(parseInt(this.state.companyID)) === false) {
+            this.showAlert("Your company ID does not exist.")
+        }
         else {
-            this.props.navigation.navigate('Employeelist', {
-                index: this.state.companyID
+            this.props.navigation.navigate('PosterProfile', {
+                id: this.state.companyID
             })
         }
     }
 
 
     render() {
+        if (!this.state.isReady) {
+            return (
+                <View style={styles.containerTop}>
+                    <Image source={require('./../assets/loading.gif')}></Image>
+                </View>
+            )
+        }
         return (
             <View style={styles.container}>
 
@@ -57,7 +83,7 @@ export default class SeekerSplash extends React.Component {
                         </Text>
                         <TextInput
                             style={styles.idinput}
-                            maxLength = {8}
+                            maxLength={8}
                             value={this.state.companyID}
                             onChangeText={(companyID) => this.setState({ companyID })}
                             placeholder="8-digit ID">
@@ -87,7 +113,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: "column",
-        backgroundColor: "bisque"
+        backgroundColor: "lightgrey"
     },
     proceedText: {
         fontSize: 16,
@@ -95,7 +121,7 @@ const styles = StyleSheet.create({
     proceedButon: {
         padding: 10,
         borderRadius: 5,
-        backgroundColor: "bisque",
+        backgroundColor: "lightgrey",
         alignSelf: "center"
     },
     newText: {
@@ -128,6 +154,6 @@ const styles = StyleSheet.create({
         flex: 6,
         flexDirection: "column",
         justifyContent: "space-between",
-        backgroundColor: "slateblue"
+        backgroundColor: "crimson"
     }
 })

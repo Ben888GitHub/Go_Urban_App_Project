@@ -9,31 +9,27 @@ export default class PosterProfile extends React.Component {
         super(props);
         this.state = {
             isReady: false,
-            employees: [],
-            currentEmployee: {},
-            myEmployeeID: this.props.navigation.state.params.id,
-            skills: ''
+            companies: [],
+            currentCompany: {},
+            myCompanyID: this.props.navigation.state.params.id,
         }
     }
 
-    updateCurrentEmployee = (currentEmployee) => {
-        this.setState({ currentEmployee })
+    updateCurrentCompany = (currentCompany) => {
+        this.setState({ currentCompany })
     }
 
     componentDidMount() {
-        axios.get('https://kwzcxp9w01.execute-api.us-east-1.amazonaws.com/dev/employees')
+        axios.get('https://kwzcxp9w01.execute-api.us-east-1.amazonaws.com/dev/companies')
             .then(res => {
-                const employees = res.data.body
-                this.setState({ employees })
-                for (let i = 0; i < employees.length; i++) {
-                    if (this.state.employees[i].id == this.state.myEmployeeID) {
-                        this.updateCurrentEmployee(this.state.employees[i])
+                const companies = res.data.body
+                this.setState({ companies })
+                for (let i = 0; i < companies.length; i++) {
+                    if (this.state.companies[i].id == this.state.myCompanyID) {
+                        this.updateCurrentCompany(this.state.companies[i])
                     }
-                    this.setState({ isReady: true })
                 }
-                skills = ''
-                skills = this.state.currentEmployee.profession.join(", ")
-                this.setState({ skills: skills })
+                this.setState({ isReady: true })
             })
     }
 
@@ -50,7 +46,7 @@ export default class PosterProfile extends React.Component {
             <View style={styles.container}>
                 <View style={styles.containerTop}>
                     <Text style={styles.titleText}>
-                        Welcome back, {this.state.currentEmployee.employeeName}
+                        Welcome back, {this.state.currentCompany.companyName}
                     </Text>
 
                 </View>
@@ -58,49 +54,63 @@ export default class PosterProfile extends React.Component {
                     <ScrollView>
                         <View style={styles.paddedView}>
                             <Text style={styles.headerText}>
-                                Employee Name
+                                Company Name
                             </Text>
                             <Text style={styles.infoText}>
-                                {this.state.currentEmployee.employeeName}
+                                {this.state.currentCompany.companyName}
                             </Text>
 
                             <Text style={styles.headerText}>
-                                Gender
+                                Preferred Gender
                             </Text>
                             <Text style={styles.infoText}>
-                                {this.state.currentEmployee.gender}
+                                {this.state.currentCompany.gender}
                             </Text>
 
                             <Text style={styles.headerText}>
-                                Skills
+                                Desired Skill
                             </Text>
                             <Text style={styles.infoText}>
-                                {this.state.skills}
+                                {this.state.currentCompany.profession[0]}
                             </Text>
 
                             <Text style={styles.headerText}>
-                                Age Group
+                                Preferred Age Group
                             </Text>
                             <Text style={styles.infoText}>
-                                {this.state.currentEmployee.ageGroup}+
+                                {this.state.currentCompany.ageGroup}+
                             </Text>
 
                             <Text style={styles.headerText}>
-                                Country of Residence
+                                Employment Location
                             </Text>
                             <Text style={styles.infoText}>
-                                {this.state.currentEmployee.location}
+                                {this.state.currentCompany.location}
+                            </Text>
+
+                            <Text style={styles.headerText}>
+                                Annual Salary
+                            </Text>
+                            <Text style={styles.infoText}>
+                                {this.state.currentCompany.annualSalary}+
+                            </Text>
+
+                            <Text style={styles.headerText}>
+                                Job Description
+                            </Text>
+                            <Text style={styles.descText}>
+                                {this.state.currentCompany.jobDesc}
                             </Text>
                         </View>
                     </ScrollView>
-                    <TouchableOpacity
-                        onPress={() => {
-                            this.props.navigation.navigate('Careerlist',
-                                { currentEmployee: this.state.currentEmployee, });
-                        }}>
+                    <TouchableOpacity 
+                    onPress = {() => {
+                        this.props.navigation.navigate('Employeelist', 
+                        { currentCompany : this.state.currentCompany, });
+                    }}>
                         <View style={styles.buttonHolder}>
                             <Text style={styles.nextText}>
-                                View Potential Jobs
+                                View Potential Employees
                             </Text>
                         </View>
                     </TouchableOpacity>

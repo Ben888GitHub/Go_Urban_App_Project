@@ -35,7 +35,7 @@ export default class initialSplash extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'bisque',
+    backgroundColor: 'lightgrey',
   },
   buttonText: {
     fontSize: 24,
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
   button: {
     flex: 1,
-    backgroundColor: 'slateblue',
+    backgroundColor: 'crimson',
     overflow: 'hidden',
     padding: 30,
     alignItems: 'center'
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   smallContainerTop: {
     flex: 1,
     overflow: "hidden",
-    backgroundColor: "slateblue",
+    backgroundColor: "crimson",
     flexDirection: "row",
     alignSelf: "center",
     borderTopLeftRadius: 20,
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
   },
   smallContainerBottom: {
     margin: 0,
-    backgroundColor: "slateblue",
+    backgroundColor: "crimson",
     overflow: "hidden",
     flex: 1,
     borderBottomRightRadius: 20,
