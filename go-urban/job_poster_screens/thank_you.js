@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
         fontSize: 25,
         alignSelf: "center",
         textAlign: "center",
-        fontWeight: 200,
+        fontWeight: "200",
     },
     buttonHolder: {
         backgroundColor: "pink",
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
     },
     minorText: {
-        fontWeight: 200,
+        fontWeight: "200",
         fontSize: 20,
     }
 })

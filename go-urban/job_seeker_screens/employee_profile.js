@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     nextText: {
         paddingBottom: 20,
         fontSize: 20,
-        fontWeight: 200,
+        fontWeight: "200",
     },
     containerBottom: {
         backgroundColor: "crimson",
@@ -145,12 +145,12 @@ const styles = StyleSheet.create({
         marginTop: 20,
         color: "white",
         fontSize: 16,
-        fontWeight: 300,
+        fontWeight: "300",
     },
     infoText: {
         fontSize: 42,
         color: "white",
-        fontWeight: 600,
+        fontWeight: "600",
     },
     descText: {
         paddingTop: 10,
