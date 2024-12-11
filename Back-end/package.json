@@ -13,10 +13,10 @@
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1",
+    "express": "^4.21.2",
     "mongoose": "^5.8.2",
     "nodemon": "^2.0.2",
-    "serverless-offline": "^5.12.1",
+    "serverless-offline": "^13.9.0",
     "aws-serverless-express": "^3.3.6"
   }
 }
